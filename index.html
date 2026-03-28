@@ -3,75 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Trade Edge PWA</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#111827">
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-900 text-gray-100 font-sans p-4 md:p-8">
+    <title>Trade Edge | Probability & Scenarios</title>
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Trade Edge | Scenario Trainer">
+    <meta property="og:description" content="Calculate your trading expectancy and train your pattern recognition with our institutional scenario engine.">
+    <meta property="og:image" content="https://yourdomain.com/preview-image.png"> <meta property="twitter:card" content="summary_large_image">
 
-    <div class="max-w-4xl mx-auto space-y-6">
-        <header class="text-center pb-4 border-b border-gray-700">
-            <h1 class="text-3xl font-bold text-white tracking-wider">TRADE EDGE</h1>
-            <p class="text-gray-400 text-sm mt-1">Probability & Scenario Engine</p>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for a sleek look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto space-y-6">
+        <header class="text-center pb-4 border-b border-slate-800">
+            <h1 class="text-3xl font-extrabold text-white tracking-widest uppercase">Trade Edge</h1>
+            <p class="text-slate-400 text-sm mt-1">Institutional Mechanics & Probability Engine</p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
-                <h2 class="text-xl font-semibold mb-4 text-blue-400">Risk & Expectancy</h2>
-                
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm text-gray-400 mb-1">Win Rate (%)</label>
-                        <input type="number" id="winRate" value="40" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white outline-none focus:border-blue-500" oninput="calculate()">
+            <div class="space-y-6">
+                <div class="bg-slate-900 p-6 rounded-xl shadow-2xl border border-slate-800">
+                    <h2 class="text-xl font-bold mb-4 text-emerald-400">Risk & Expectancy Engine</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Historical Win Rate (%)</label>
+                            <input type="number" id="winRate" value="40" class="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white outline-none focus:border-emerald-500 transition" oninput="calculate()">
+                        </div>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Entry</label>
+                                <input type="number" id="entry" value="100" class="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white outline-none focus:border-emerald-500 transition" oninput="calculate()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Stop Loss</label>
+                                <input type="number" id="stop" value="95" class="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white outline-none focus:border-emerald-500 transition" oninput="calculate()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Target</label>
+                                <input type="number" id="target" value="115" class="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white outline-none focus:border-emerald-500 transition" oninput="calculate()">
+                            </div>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-3 gap-2">
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Entry</label>
-                            <input type="number" id="entry" value="100" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white outline-none focus:border-blue-500" oninput="calculate()">
+
+                    <div class="mt-6 pt-6 border-t border-slate-800 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-400 text-sm font-medium">Risk : Reward Ratio</span>
+                            <span id="rrOutput" class="font-mono text-lg text-white font-bold">1 : 3.00</span>
                         </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Stop Loss</label>
-                            <input type="number" id="stop" value="95" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white outline-none focus:border-blue-500" oninput="calculate()">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-gray-400 mb-1">Target</label>
-                            <input type="number" id="target" value="115" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white outline-none focus:border-blue-500" oninput="calculate()">
+                        <div class="flex justify-between items-center bg-slate-950 p-4 rounded-lg border border-slate-800">
+                            <span class="text-slate-300 font-bold tracking-wide">System Expectancy</span>
+                            <span id="expectancyOutput" class="font-mono text-2xl font-black text-emerald-500">+$4.00</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-6 pt-4 border-t border-gray-700 space-y-2">
-                    <div class="flex justify-between">
-                        <span class="text-gray-400">Risk:Reward</span>
-                        <span id="rrOutput" class="font-mono text-white">1 : 3.00</span>
-                    </div>
-                    <div class="flex justify-between items-center bg-gray-900 p-3 rounded mt-2">
-                        <span class="text-gray-300 font-semibold">System Expectancy</span>
-                        <span id="expectancyOutput" class="font-mono text-xl font-bold text-green-500">+$4.00</span>
-                    </div>
-                    <p class="text-xs text-gray-500 text-center mt-2">Positive expectancy means this setup is mathematically profitable over 100+ trades.</p>
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+                    <h3 class="font-bold text-slate-200 mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        The Math of Trading
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                        <strong class="text-slate-300">Expectancy (E)</strong> is your mathematical edge. It calculates the average amount you will make or lose per trade over a series of 100+ trades.
+                    </p>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        If E is positive, you are operating a profitable business. If E is negative, you are gambling. You can have a 35% win rate and still be highly profitable if your Risk:Reward is 1:3 or higher.
+                    </p>
                 </div>
             </div>
 
-            <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col">
-                <h2 class="text-xl font-semibold mb-4 text-purple-400">Scenario Trainer</h2>
+            <div class="bg-slate-900 p-6 rounded-xl shadow-2xl border border-slate-800 flex flex-col h-full">
+                <div class="flex justify-between items-end mb-4">
+                    <h2 class="text-xl font-bold text-blue-400">Context Engine</h2>
+                    <span id="counter" class="text-xs font-mono text-slate-500">0 / 0</span>
+                </div>
                 
-                <div class="flex-grow">
-                    <p id="scenarioText" class="text-sm text-gray-200 mb-6 leading-relaxed min-h-[80px]"></p>
+                <div class="flex-grow flex flex-col">
                     
-                    <div id="btnGroup" class="grid grid-cols-2 gap-3 mb-6">
-                        <button onclick="checkAnswer('Buy')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Buy</button>
-                        <button onclick="checkAnswer('Sell')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Sell</button>
-                        <button onclick="checkAnswer('Short')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Short</button>
-                        <button onclick="checkAnswer('Hold')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Hold</button>
+                    <div class="mb-5 w-full h-56 bg-slate-950 rounded-lg border border-slate-800 overflow-hidden flex items-center justify-center relative">
+                        <img id="scenarioImage" src="" alt="Chart" class="w-full h-full object-cover hidden" onerror="this.classList.add('hidden'); document.getElementById('noImageText').classList.remove('hidden');">
+                        <div id="noImageText" class="text-center px-4">
+                            <svg class="w-8 h-8 text-slate-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="text-slate-500 text-xs uppercase tracking-widest">Awaiting Chart Upload</span>
+                        </div>
                     </div>
 
-                    <div id="feedbackBox" class="hidden p-4 rounded-lg bg-gray-900 border border-gray-600">
-                        <h3 id="feedbackTitle" class="font-bold text-lg mb-1"></h3>
-                        <p id="feedbackExplanation" class="text-sm text-gray-400"></p>
-                        <button onclick="nextScenario()" class="mt-4 w-full bg-blue-600 hover:bg-blue-500 text-white py-2 rounded font-semibold transition">Next Scenario →</button>
+                    <p id="scenarioText" class="text-sm text-slate-200 mb-6 leading-relaxed flex-grow font-medium"></p>
+                    
+                    <div id="btnGroup" class="grid grid-cols-2 gap-3 mb-2">
+                        <button onclick="checkAnswer('Buy')" class="bg-slate-800 border border-slate-700 hover:bg-emerald-600 hover:border-emerald-500 text-white font-bold py-3 rounded-lg transition-all duration-200">BUY</button>
+                        <button onclick="checkAnswer('Sell')" class="bg-slate-800 border border-slate-700 hover:bg-rose-600 hover:border-rose-500 text-white font-bold py-3 rounded-lg transition-all duration-200">SELL</button>
+                        <button onclick="checkAnswer('Short')" class="bg-slate-800 border border-slate-700 hover:bg-rose-600 hover:border-rose-500 text-white font-bold py-3 rounded-lg transition-all duration-200">SHORT</button>
+                        <button onclick="checkAnswer('Hold')" class="bg-slate-800 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 text-white font-bold py-3 rounded-lg transition-all duration-200">HOLD</button>
+                    </div>
+
+                    <div id="feedbackBox" class="hidden p-5 rounded-lg bg-slate-950 border border-slate-800 mt-2">
+                        <h3 id="feedbackTitle" class="font-black text-lg mb-2 uppercase tracking-wide"></h3>
+                        <p id="feedbackExplanation" class="text-sm text-slate-300 leading-relaxed"></p>
+                        <button onclick="nextScenario()" class="mt-5 w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-bold transition shadow-lg shadow-blue-900/20">Next Setup →</button>
                     </div>
                 </div>
             </div>
@@ -80,7 +118,7 @@
     </div>
 
     <script>
-        // --- CALCULATOR LOGIC ---
+        // --- 1. EXPECTANCY CALCULATOR LOGIC ---
         function calculate() {
             const winRate = parseFloat(document.getElementById('winRate').value) / 100;
             const entry = parseFloat(document.getElementById('entry').value);
@@ -95,34 +133,87 @@
 
             if (risk <= 0) {
                 document.getElementById('rrOutput').innerText = "Invalid Setup";
+                document.getElementById('expectancyOutput').innerText = "N/A";
                 return;
             }
 
             const rr = reward / risk;
             document.getElementById('rrOutput').innerText = `1 : ${rr.toFixed(2)}`;
+            document.getElementById('rrOutput').className = `font-mono text-lg font-bold ${rr >= 2 ? 'text-emerald-400' : 'text-rose-400'}`;
 
             const lossRate = 1 - winRate;
             const expectancy = (winRate * reward) - (lossRate * risk);
             
             const expEl = document.getElementById('expectancyOutput');
             expEl.innerText = `${expectancy > 0 ? '+' : ''}$${expectancy.toFixed(2)}`;
-            expEl.className = `font-mono text-xl font-bold ${expectancy > 0 ? 'text-green-500' : 'text-red-500'}`;
+            expEl.className = `font-mono text-2xl font-black ${expectancy > 0 ? 'text-emerald-500' : 'text-rose-500'}`;
         }
 
-        // --- SCENARIO LOGIC ---
-        // ADD YOUR 50 SCENARIOS TO THIS ARRAY
+        // --- 2. THE INSTITUTIONAL SCENARIO BANK (25 Setups) ---
         const scenarios = [
-            { text: "Wyckoff Phase C: Price just swept the Preliminary Support low on extreme volume. The 15m candle closed back inside the range as a massive bullish pin bar.", correct: "Buy", exp: "This is a 'Spring' trap. High volume + rejection of lower prices means Smart Money is absorbing sell orders." },
-            { text: "Macro Uptrend: Price is currently consolidating INSIDE the Ichimoku Cloud. Tenkan-sen just crossed Kijun-sen upward.", correct: "Hold", exp: "Inside the Kumo (Cloud) is a no-trade zone. It represents chop and equilibrium. Wait for a breakout before entering." },
-            { text: "Downtrend: Price rallies to the 200 SMA and forms a double top. The second peak breaks the high of the first peak slightly, but volume is entirely dead.", correct: "Short", exp: "This is an Upthrust/Trap at major dynamic resistance (200 SMA). Low volume on a breakout means no institutional backing." },
-            { text: "Bull Flag: Price breaks out of the top of the flag structure, but the volume is extremely low compared to the initial impulse pole.", correct: "Hold", exp: "A breakout without volume is highly suspicious. It is likely a trap to catch early buyers before another flush downward." },
-            { text: "Volume Anomaly: In a heavy downtrend, an extremely wide-spread red candle appears on the highest volume of the month, but the next candle is a small green doji.", correct: "Buy", exp: "This is a Selling Climax followed by Absorption. Massive selling effort yielded zero downward result on the next candle. Reversal is imminent." }
+            // WYCKOFF & LIQUIDITY
+            { text: "Wyckoff Phase C: Price sweeps below a major support level, triggering stop-losses. It immediately rejects on massive volume, closing as a bullish pin bar.", correct: "Buy", exp: "This is a 'Spring'. Smart money engineered the drop to steal retail liquidity. High volume + rejection means absorption.", image: "chart1.png" },
+            { text: "Macro Uptrend: Price breaks to a new all-time high out of a consolidation range. However, the volume on the breakout candle is the lowest it has been all week.", correct: "Short", exp: "This is an 'Upthrust' or trap. Breakouts require high volume (effort) to sustain. Low volume means institutions are not buying; they are trapping retail.", image: "chart2.png" },
+            { text: "Accumulation: Price is ranging. It makes a Sign of Strength (SOS) by impulsively breaking the top of the range on high volume, then pulls back slowly on low volume.", correct: "Buy", exp: "This pullback is the Last Point of Support (LPS). Low volume on the pullback proves sellers are exhausted. Enter before the markup phase.", image: "chart3.png" },
+            { text: "Wyckoff Distribution: After a massive run-up, price goes sideways. You see a series of wide-spread red candles with massive volume, but price isn't dropping below support.", correct: "Sell", exp: "This is heavy institutional distribution (selling). They are unloading bags into retail buyers. The support will eventually break.", image: "chart4.png" },
+            { text: "Liquidity Sweep: Price forms a perfect 'Double Top' at major resistance. Retail shorts place stops above the tops. Price wicks slightly above the tops, then dumps.", correct: "Short", exp: "Institutions swept the buy-stops (liquidity) above the double top to fill their massive short orders. Enter the short on the way back down.", image: "chart5.png" },
+            
+            // VOLUME PRICE ANALYSIS (VPA)
+            { text: "Downtrend: A massive, wide-spread red candle appears on extreme volume. However, the very next candle is a tiny green doji.", correct: "Buy", exp: "Selling Climax + Absorption. The massive effort to push price down resulted in zero follow-through. Smart money bought the bottom.", image: "chart6.png" },
+            { text: "Uptrend: Price is rising, but over the last 5 candles, the volume bars have been steadily decreasing as price goes higher.", correct: "Hold", exp: "This is an anomaly. Rising price should be validated by rising or stable volume. Decreasing volume means the trend is running out of gas. Prepare to take profits.", image: "chart7.png" },
+            { text: "Consolidation: Price is trapped in a tight range. Suddenly, a candle closes right in the middle of the range, but the volume bar is huge.", correct: "Hold", exp: "High volume on a narrow spread candle inside a range means a massive battle is happening between buyers and sellers, but no one has won yet. Wait for the breakout.", image: "chart8.png" },
+            { text: "Breakout: Price breaks a major resistance level with a massive green candle and extreme volume. The next three candles are small and red, with very low volume.", correct: "Buy", exp: "This is a perfect validation. The breakout had institutional backing (high volume). The pullback is just weak retail profit-taking (low volume).", image: "chart9.png" },
+            { text: "Support Test: Price approaches a known support zone. The candle touching the support has a very long top wick and high volume.", correct: "Short", exp: "A long top wick on high volume indicates heavy selling pressure from above. Buyers tried to push it up, but sellers aggressively slammed it down.", image: "chart10.png" },
+
+            // ICHIMOKU KINKO HYO
+            { text: "Ichimoku: Price breaks above the Kumo (Cloud). You look 26 periods ahead, and the future cloud has twisted from red to green.", correct: "Buy", exp: "The Kumo breakout is confirmed by the future twist. The macro trend has shifted from bearish to bullish.", image: "chart11.png" },
+            { text: "Ichimoku: The Tenkan-sen (fast line) crosses above the Kijun-sen (slow line), generating a buy signal. However, price is currently INSIDE the Cloud.", correct: "Hold", exp: "Inside the cloud is an area of noise and equilibrium. A TK cross inside the cloud is considered a neutral/weak signal. Wait for clarity.", image: "chart12.png" },
+            { text: "Ichimoku: Price is in a strong uptrend above the cloud. It pulls back and touches the Kijun-sen (base line). The candle rejects the line, leaving a bottom wick.", correct: "Buy", exp: "The Kijun-sen acts as a 50% equilibrium support for the last 26 periods. A rejection here is a classic, high-probability trend continuation entry.", image: "chart13.png" },
+            { text: "Ichimoku Edge-to-Edge: Price closes firmly inside a very thick Kumo (Cloud) from the bottom. There is no resistance inside the cloud.", correct: "Buy", exp: "When price enters the cloud, it has a high probability of traveling to the other edge of the cloud (Span B). The thick cloud top is your target.", image: "chart14.png" },
+            { text: "Ichimoku Confirmation: Price breaks above the cloud, but the Chikou Span (lagging line 26 periods back) is still trapped below historical price candles.", correct: "Hold", exp: "The Chikou Span is your ultimate filter. If it is stuck in price traffic, the breakout is not confirmed and could be a fakeout.", image: "chart15.png" },
+
+            // CLASSICAL STRUCTURES & TRAPS
+            { text: "Structure: A Bull Flag forms after a strong impulse up. The flag channel is sloping downwards, but volume is actually INCREASING as price drops.", correct: "Sell", exp: "A valid flag must form on DECREASING volume (showing lack of selling interest). Increasing volume on a pullback means a reversal, not a continuation.", image: "chart16.png" },
+            { text: "Structure: A Head and Shoulders pattern forms. The Right Shoulder is currently forming, but the volume is significantly LOWER than the Left Shoulder.", correct: "Short", exp: "This confirms the pattern. Lower volume on the right shoulder proves buyers are exhausted and cannot push price back to the highs.", image: "chart17.png" },
+            { text: "Moving Averages: On the Daily chart, the 50 SMA crosses below the 200 SMA (Death Cross). However, price is currently 15% below the 200 SMA.", correct: "Hold", exp: "By the time a macro cross happens, the move is already exhausted. Shorting here is dangerous due to the rubber-band effect (mean reversion) pulling price back up to the SMA.", image: "chart18.png" },
+            { text: "Trendline: A perfectly clean diagonal support trendline has been touched 4 times. Retail is watching it. On the 5th touch, price breaks it impulsively.", correct: "Short", exp: "Trendlines exist to be broken. Once a pattern becomes too obvious to retail, institutions will break it to trigger the stops placed just below the line.", image: "chart19.png" },
+            { text: "Structure: Price forms a massive 'Cup and Handle'. It breaks the rim of the cup, but immediately reverses and closes below the rim as a bearish engulfing.", correct: "Short", exp: "Failed breakouts are often more powerful than successful ones. This trapped all the breakout buyers, providing fuel for a fast move down.", image: "chart20.png" },
+
+            // ADVANCED INSTITUTIONAL CONTEXT
+            { text: "Context: Price is at a major weekly resistance level. On the 1-hour chart, it forms a small, beautiful bullish flag just beneath the resistance line.", correct: "Short", exp: "Never buy into major resistance. Institutions will paint bullish retail patterns just below resistance to induce buying, creating the liquidity they need to short.", image: "chart21.png" },
+            { text: "Mean Reversion: Price goes parabolic, extending far away from the Daily 20 SMA. It prints a massive green candle, but the top wick is 50% of the body.", correct: "Sell", exp: "Price is overextended and encountering heavy supply (top wick). It needs to revert to the mean (SMA) to find equilibrium.", image: "chart22.png" },
+            { text: "Gaps: Market opens with a massive gap down below known support. Within the first 30 minutes, price aggressively fills the gap and reclaims the support level.", correct: "Buy", exp: "This is an exhaustion gap/trap. Smart money gapped the price down to shake out weak hands, then immediately bought the discount.", image: "chart23.png" },
+            { text: "Volume: You see an 'Effort to Rise' anomaly. Three green candles in a row, volume is increasing on each, but the physical size of the candles is getting smaller.", correct: "Short", exp: "More buying effort is resulting in less price progress. This means institutional sellers are stepping in with limit orders, absorbing the buyers. Reversal soon.", image: "chart24.png" },
+            { text: "Structure: Price is making Lower Highs and Lower Lows (Downtrend). It pulls back to a Lower High, prints a bearish pin bar, and volume slightly increases.", correct: "Short", exp: "This is a flawless structural trend continuation entry. You are entering at a premium (Lower High) with a rejection candle confirming sellers are active.", image: "chart25.png" }
         ];
 
         let currentScen = 0;
 
         function loadScenario() {
-            document.getElementById('scenarioText').innerText = `Scenario ${currentScen + 1}/${scenarios.length}: ${scenarios[currentScen].text}`;
+            const sc = scenarios[currentScen];
+            
+            // Update Text & Counter
+            document.getElementById('scenarioText').innerText = sc.text;
+            document.getElementById('counter').innerText = `${currentScen + 1} / ${scenarios.length}`;
+            
+            // Update Image
+            const imgEl = document.getElementById('scenarioImage');
+            const noImgEl = document.getElementById('noImageText');
+            
+            // Reset image state
+            imgEl.classList.add('hidden');
+            noImgEl.classList.remove('hidden');
+
+            if (sc.image) {
+                imgEl.src = sc.image;
+                // The onload event ensures we only show the image if it successfully loads from your server
+                imgEl.onload = function() {
+                    imgEl.classList.remove('hidden');
+                    noImgEl.classList.add('hidden');
+                }
+            }
+
+            // Reset UI State
             document.getElementById('btnGroup').classList.remove('hidden');
             document.getElementById('feedbackBox').classList.add('hidden');
         }
@@ -135,10 +226,10 @@
             document.getElementById('feedbackBox').classList.remove('hidden');
             
             const titleEl = document.getElementById('feedbackTitle');
-            titleEl.innerText = isCorrect ? "Correct!" : `Incorrect. The answer is ${sc.correct}.`;
-            titleEl.className = `font-bold text-lg mb-1 ${isCorrect ? 'text-green-500' : 'text-red-500'}`;
+            titleEl.innerText = isCorrect ? "✅ PRECISION ENTRY" : `❌ TRAPPED. Correct Action: ${sc.correct.toUpperCase()}`;
+            titleEl.className = `font-black text-lg mb-2 tracking-wide uppercase ${isCorrect ? 'text-emerald-400' : 'text-rose-500'}`;
             
-            document.getElementById('feedbackExplanation').innerText = sc.exp;
+            document.getElementById('feedbackExplanation').innerHTML = `<span class="text-white font-bold">The Mechanics:</span> ${sc.exp}`;
         }
 
         function nextScenario() {
@@ -146,13 +237,15 @@
             loadScenario();
         }
 
-        // Init App
+        // Initialize App
         calculate();
         loadScenario();
 
-        // --- PWA SERVICE WORKER REGISTRATION ---
+        // --- PWA SERVICE WORKER LOGIC ---
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').then(() => console.log("Service Worker Registered"));
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW setup failed'));
+            });
         }
     </script>
 </body>
