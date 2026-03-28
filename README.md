@@ -1,2 +1,2 @@
-# trade-edge
+# Trade-Edge
 Trading Course
