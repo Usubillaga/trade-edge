@@ -6,7 +6,7 @@
     <title>Trade Edge | Probability & Scenarios</title>
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Trade Edge | Scenario Trainer">
+    <meta property="og:title" content="Trade Edge | 100 Institutional Scenarios">
     <meta property="og:description" content="Calculate your trading expectancy and train your pattern recognition with our institutional scenario engine.">
     <meta property="twitter:card" content="summary_large_image">
 
@@ -25,9 +25,9 @@
         <header class="flex justify-between items-center pb-4 border-b border-slate-800 relative">
             <div class="flex-1 text-center md:text-left">
                 <h1 id="ui-title" class="text-3xl font-extrabold text-white tracking-widest uppercase">Trade Edge</h1>
-                <p id="ui-subtitle" class="text-slate-400 text-sm mt-1">Institutional Mechanics & Probability Engine</p>
+                <p id="ui-subtitle" class="text-slate-400 text-sm mt-1">Institutional Mechanics Engine</p>
             </div>
-            <button onclick="toggleLang()" class="absolute right-0 top-0 mt-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 py-2 px-4 rounded-full border border-slate-600 transition">
+            <button onclick="toggleLang()" class="absolute right-0 top-0 mt-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 py-2 px-4 rounded-full border border-slate-600 transition shadow-lg">
                 <span id="langBtnText">ESPAÑOL</span> 🌍
             </button>
         </header>
@@ -64,7 +64,7 @@
                             <span id="ui-rr" class="text-slate-400 text-sm font-medium">Risk : Reward Ratio</span>
                             <span id="rrOutput" class="font-mono text-lg text-white font-bold">1 : 3.00</span>
                         </div>
-                        <div class="flex justify-between items-center bg-slate-950 p-4 rounded-lg border border-slate-800">
+                        <div class="flex justify-between items-center bg-slate-950 p-4 rounded-lg border border-slate-800 shadow-inner">
                             <span id="ui-expectancy" class="text-slate-300 font-bold tracking-wide">System Expectancy</span>
                             <span id="expectancyOutput" class="font-mono text-2xl font-black text-emerald-500">+$4.00</span>
                         </div>
@@ -77,10 +77,10 @@
                         The Math of Trading
                     </h3>
                     <p id="ui-theory1" class="text-xs text-slate-400 leading-relaxed mb-2">
-                        <strong class="text-slate-300">Expectancy (E)</strong> is your mathematical edge. It calculates the average amount you will make or lose per trade over a series of 100+ trades.
+                        <strong class="text-slate-300">Expectancy (E)</strong> is your mathematical edge. It calculates the average amount you make or lose per trade.
                     </p>
                     <p id="ui-theory2" class="text-xs text-slate-400 leading-relaxed">
-                        If E is positive, you are operating a profitable business. If E is negative, you are gambling. You can have a 35% win rate and still be highly profitable if your Risk:Reward is 1:3 or higher.
+                        If E is positive, you are operating a profitable business. If E is negative, you are gambling. Focus on RR over Win Rate.
                     </p>
                 </div>
             </div>
@@ -88,19 +88,18 @@
             <div class="bg-slate-900 p-6 rounded-xl shadow-2xl border border-slate-800 flex flex-col h-full">
                 <div class="flex justify-between items-end mb-6">
                     <h2 id="ui-scenTitle" class="text-xl font-bold text-blue-400">Context Engine</h2>
-                    <span id="counter" class="text-xs font-mono text-slate-500">0 / 0</span>
+                    <span id="counter" class="text-xs font-mono text-slate-500 bg-slate-800 px-2 py-1 rounded">0 / 100</span>
                 </div>
                 
                 <div class="flex-grow flex flex-col">
-                    
-                    <div class="bg-slate-950 p-6 rounded-lg border border-slate-800 mb-6 flex-grow flex items-center">
+                    <div class="bg-slate-950 p-6 rounded-lg border border-slate-800 mb-6 flex-grow flex items-center shadow-inner">
                         <p id="scenarioText" class="text-base text-slate-200 leading-relaxed font-medium w-full"></p>
                     </div>
                     
                     <div id="btnGroup" class="grid grid-cols-3 gap-3 mb-2">
-                        <button onclick="checkAnswer('Buy')" id="btnBuy" class="bg-slate-800 border border-slate-700 hover:bg-emerald-600 hover:border-emerald-500 text-white font-bold py-4 rounded-lg transition-all duration-200">BUY</button>
-                        <button onclick="checkAnswer('Sell')" id="btnSell" class="bg-slate-800 border border-slate-700 hover:bg-rose-600 hover:border-rose-500 text-white font-bold py-4 rounded-lg transition-all duration-200">SELL</button>
-                        <button onclick="checkAnswer('Hold')" id="btnHold" class="bg-slate-800 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 text-white font-bold py-4 rounded-lg transition-all duration-200">HOLD</button>
+                        <button onclick="checkAnswer('Buy')" id="btnBuy" class="bg-slate-800 border border-slate-700 hover:bg-emerald-600 hover:border-emerald-500 text-white font-bold py-4 rounded-lg transition-all duration-200 shadow-md">BUY</button>
+                        <button onclick="checkAnswer('Sell')" id="btnSell" class="bg-slate-800 border border-slate-700 hover:bg-rose-600 hover:border-rose-500 text-white font-bold py-4 rounded-lg transition-all duration-200 shadow-md">SELL</button>
+                        <button onclick="checkAnswer('Hold')" id="btnHold" class="bg-slate-800 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 text-white font-bold py-4 rounded-lg transition-all duration-200 shadow-md">HOLD</button>
                     </div>
 
                     <div id="feedbackBox" class="hidden p-5 rounded-lg bg-slate-950 border border-slate-800 mt-2">
@@ -115,59 +114,29 @@
     </div>
 
     <script>
-        // --- MULTILINGUAL DICTIONARY ---
         let lang = 'en';
 
         const i18n = {
             en: {
-                title: "Trade Edge",
-                subtitle: "Institutional Mechanics & Probability Engine",
-                calcTitle: "Risk & Expectancy Engine",
-                winRate: "Historical Win Rate (%)",
-                entry: "Entry",
-                stop: "Stop Loss",
-                target: "Target",
-                rr: "Risk : Reward Ratio",
-                expectancy: "System Expectancy",
-                theoryTitle: "The Math of Trading",
-                theory1: "<strong class='text-slate-300'>Expectancy (E)</strong> is your mathematical edge. It calculates the average amount you will make or lose per trade over 100+ trades.",
-                theory2: "If E is positive, you are operating a profitable business. If E is negative, you are gambling. You can have a 35% win rate and still be highly profitable if your Risk:Reward is 1:3 or higher.",
-                scenTitle: "Context Engine",
-                btnBuy: "BUY",
-                btnSell: "SELL",
-                btnHold: "HOLD",
-                nextBtn: "Next Setup →",
-                correctMsg: "✅ PRECISION ENTRY",
-                incorrectMsg: "❌ TRAPPED. Correct Action:",
-                mechanicsMsg: "The Mechanics:",
-                toggleBtn: "ESPAÑOL"
+                title: "Trade Edge", subtitle: "Institutional Mechanics Engine", calcTitle: "Risk & Expectancy Engine",
+                winRate: "Historical Win Rate (%)", entry: "Entry", stop: "Stop Loss", target: "Target", rr: "Risk : Reward Ratio",
+                expectancy: "System Expectancy", theoryTitle: "The Math of Trading",
+                theory1: "<strong class='text-slate-300'>Expectancy (E)</strong> is your mathematical edge. It calculates the average amount you make or lose per trade.",
+                theory2: "If E is positive, you are operating a profitable business. If E is negative, you are gambling. Focus on RR over Win Rate.",
+                scenTitle: "Context Engine", btnBuy: "BUY", btnSell: "SELL", btnHold: "HOLD", nextBtn: "Next Setup →",
+                correctMsg: "✅ PRECISION ENTRY", incorrectMsg: "❌ TRAPPED. Correct Action:", mechanicsMsg: "The Mechanics:", toggleBtn: "ESPAÑOL"
             },
             es: {
-                title: "Trade Edge",
-                subtitle: "Mecánica Institucional y Motor de Probabilidad",
-                calcTitle: "Motor de Riesgo y Esperanza",
-                winRate: "Tasa de Acierto Histórica (%)",
-                entry: "Entrada",
-                stop: "Stop Loss",
-                target: "Objetivo",
-                rr: "Relación Riesgo : Beneficio",
-                expectancy: "Esperanza del Sistema",
-                theoryTitle: "Las Matemáticas del Trading",
-                theory1: "<strong class='text-slate-300'>La Esperanza (E)</strong> es tu ventaja matemática. Calcula el promedio que ganarás o perderás por operación tras 100+ operaciones.",
-                theory2: "Si E es positiva, operas un negocio rentable. Si es negativa, estás apostando. Puedes tener un 35% de acierto y ser muy rentable si tu Riesgo:Beneficio es 1:3 o mayor.",
-                scenTitle: "Motor de Contexto",
-                btnBuy: "COMPRAR",
-                btnSell: "VENDER",
-                btnHold: "ESPERAR",
-                nextBtn: "Siguiente Escenario →",
-                correctMsg: "✅ ENTRADA PRECISA",
-                incorrectMsg: "❌ ATRAPADO. Acción Correcta:",
-                mechanicsMsg: "La Mecánica:",
-                toggleBtn: "ENGLISH"
+                title: "Trade Edge", subtitle: "Motor de Mecánica Institucional", calcTitle: "Motor de Riesgo y Esperanza",
+                winRate: "Tasa de Acierto Histórica (%)", entry: "Entrada", stop: "Stop Loss", target: "Objetivo", rr: "Relación Riesgo : Beneficio",
+                expectancy: "Esperanza del Sistema", theoryTitle: "Las Matemáticas del Trading",
+                theory1: "<strong class='text-slate-300'>La Esperanza (E)</strong> es tu ventaja matemática. Calcula el promedio que ganas o pierdes por operación.",
+                theory2: "Si E es positiva, operas un negocio rentable. Si es negativa, estás apostando. Enfócate en tu Ratio Riesgo/Beneficio.",
+                scenTitle: "Motor de Contexto", btnBuy: "COMPRAR", btnSell: "VENDER", btnHold: "ESPERAR", nextBtn: "Siguiente Escenario →",
+                correctMsg: "✅ ENTRADA PRECISA", incorrectMsg: "❌ ATRAPADO. Acción Correcta:", mechanicsMsg: "La Mecánica:", toggleBtn: "ENGLISH"
             }
         };
 
-        // --- CALCULATOR LOGIC ---
         function calculate() {
             const winRate = parseFloat(document.getElementById('winRate').value) / 100;
             const entry = parseFloat(document.getElementById('entry').value);
@@ -190,124 +159,104 @@
             document.getElementById('rrOutput').innerText = `1 : ${rr.toFixed(2)}`;
             document.getElementById('rrOutput').className = `font-mono text-lg font-bold ${rr >= 2 ? 'text-emerald-400' : 'text-rose-400'}`;
 
-            const lossRate = 1 - winRate;
-            const expectancy = (winRate * reward) - (lossRate * risk);
-            
+            const expectancy = (winRate * reward) - ((1 - winRate) * risk);
             const expEl = document.getElementById('expectancyOutput');
             expEl.innerText = `${expectancy > 0 ? '+' : ''}$${expectancy.toFixed(2)}`;
             expEl.className = `font-mono text-2xl font-black ${expectancy > 0 ? 'text-emerald-500' : 'text-rose-500'}`;
         }
 
-        // --- 20 BILINGUAL SCENARIOS (3 OPTIONS: BUY, SELL, HOLD) ---
+        // --- THE 100 SCENARIOS MASTER ARRAY ---
+        // Covers: Wyckoff, VPA, SMC (Smart Money), Ichimoku, Moving Averages, RSI, Traps.
         const scenarios = [
-            { 
-                correct: "Buy", 
-                en: { text: "Wyckoff Phase C: Price sweeps below a major support level, triggering stop-losses. It immediately rejects on massive volume, closing as a bullish pin bar.", exp: "This is a 'Spring'. Smart money engineered the drop to steal retail liquidity. High volume + rejection means absorption." },
-                es: { text: "Fase C de Wyckoff: El precio cae por debajo del soporte principal, activando stop-losses. Se rechaza inmediatamente con volumen masivo, cerrando como vela martillo alcista.", exp: "Esto es un 'Spring'. El dinero inteligente diseñó la caída para robar liquidez. Alto volumen + rechazo significa absorción." }
-            },
-            { 
-                correct: "Sell", 
-                en: { text: "Macro Uptrend: Price breaks to a new all-time high out of a consolidation range. However, the volume on the breakout candle is the lowest it has been all week.", exp: "This is an 'Upthrust' or trap. Breakouts require high volume (effort) to sustain. Low volume means institutions are distributing, not buying." },
-                es: { text: "Tendencia Alcista: El precio rompe a un nuevo máximo histórico tras una consolidación. Sin embargo, el volumen de la ruptura es el más bajo de toda la semana.", exp: "Esto es un 'Upthrust' (trampa alcista). Las rupturas requieren alto volumen. Bajo volumen significa que las instituciones están distribuyendo, no comprando." }
-            },
-            { 
-                correct: "Buy", 
-                en: { text: "Accumulation: Price breaks the top of a range impulsively on high volume, then pulls back slowly with decreasing, very low volume.", exp: "This pullback is the Last Point of Support (LPS). Low volume on the pullback proves sellers are exhausted." },
-                es: { text: "Acumulación: El precio rompe el tope de un rango impulsivamente con alto volumen, luego retrocede lentamente con un volumen muy bajo y decreciente.", exp: "Este retroceso es el Último Punto de Soporte (LPS). El bajo volumen demuestra que los vendedores están agotados." }
-            },
-            { 
-                correct: "Sell", 
-                en: { text: "Distribution: After a massive run-up, price goes sideways. You see a series of wide-spread red candles with massive volume, but price isn't dropping below support... yet.", exp: "This is heavy institutional selling. They are unloading bags into retail buyers. The support floor will eventually collapse." },
-                es: { text: "Distribución: Tras una gran subida, el precio lateraliza. Ves grandes velas rojas con volumen masivo, pero el precio aún no cae por debajo del soporte.", exp: "Es venta institucional fuerte. Están descargando sus posiciones a los minoristas. El soporte eventualmente colapsará." }
-            },
-            { 
-                correct: "Sell", 
-                en: { text: "Liquidity Sweep: Price forms a perfect 'Double Top' at major resistance. Price wicks slightly above the tops, then immediately dumps.", exp: "Institutions swept the buy-stops (liquidity) sitting above the double top to fill their massive sell orders. The trap is set." },
-                es: { text: "Barrido de Liquidez: El precio forma un 'Doble Techo' perfecto. El precio deja una mecha ligeramente por encima de los techos y luego cae de inmediato.", exp: "Las instituciones barrieron los stop-loss (liquidez) por encima del doble techo para llenar sus órdenes de venta." }
-            },
-            { 
-                correct: "Buy", 
-                en: { text: "Downtrend: A massive, wide-spread red candle appears on extreme volume. However, the very next candle is a tiny green doji.", exp: "Selling Climax + Absorption. The massive effort to push price down resulted in zero follow-through. Smart money bought the bottom." },
-                es: { text: "Tendencia Bajista: Aparece una enorme vela roja con volumen extremo. Sin embargo, la siguiente vela es un pequeño doji verde.", exp: "Clímax de Venta + Absorción. El gran esfuerzo por bajar el precio no tuvo continuación. El dinero inteligente compró el fondo." }
-            },
-            { 
-                correct: "Hold", 
-                en: { text: "Uptrend: Price is rising consistently, but over the last 5 candles, the volume bars have been steadily decreasing as price goes higher.", exp: "This is an anomaly. Rising price should be validated by rising volume. Decreasing volume means the trend is running out of gas. Wait for confirmation before selling." },
-                es: { text: "Tendencia Alcista: El precio sube constantemente, pero en las últimas 5 velas, el volumen ha ido disminuyendo.", exp: "Es una anomalía. La subida debe ser validada por el volumen. Menos volumen significa que la tendencia se queda sin fuerza. Espera confirmación antes de vender." }
-            },
-            { 
-                correct: "Hold", 
-                en: { text: "Consolidation: Price is trapped in a tight range. Suddenly, a candle closes right in the middle of the range, but the volume bar is huge.", exp: "High volume on a narrow spread candle inside a range means a massive battle is happening, but no one has won yet. Wait for the true breakout." },
-                es: { text: "Consolidación: El precio está en un rango estrecho. De repente, una vela cierra en el medio del rango, pero con un volumen enorme.", exp: "Alto volumen en una vela estrecha significa una gran batalla entre toros y osos, pero nadie ha ganado. Espera la ruptura real." }
-            },
-            { 
-                correct: "Buy", 
-                en: { text: "Breakout: Price breaks resistance with a massive green candle and extreme volume. The next three candles are small and red, with very low volume.", exp: "Perfect validation. The breakout had institutional backing (effort). The pullback is just weak retail profit-taking." },
-                es: { text: "Ruptura: El precio rompe la resistencia con una gran vela verde y volumen extremo. Las siguientes tres velas son pequeñas y rojas, con muy bajo volumen.", exp: "Validación perfecta. La ruptura tuvo respaldo institucional. El retroceso es solo toma de ganancias minorista." }
-            },
-            { 
-                correct: "Sell", 
-                en: { text: "Support Test: Price approaches a known resistance ceiling. The candle touching it has a very long top wick and high volume.", exp: "A long top wick on high volume indicates heavy selling pressure. Buyers tried to push it up, but sellers aggressively slammed it down." },
-                es: { text: "Prueba de Resistencia: El precio se acerca a un techo de resistencia. La vela que lo toca tiene una mecha superior muy larga y alto volumen.", exp: "Una larga mecha superior con alto volumen indica fuerte presión de venta. Los compradores intentaron subirlo, pero los vendedores lo frenaron." }
-            },
-            { 
-                correct: "Buy", 
-                en: { text: "Ichimoku: Price breaks above the Kumo (Cloud). You look 26 periods ahead, and the future cloud has twisted from red to green.", exp: "The Kumo breakout is confirmed by the future twist. The macro trend has shifted from bearish to bullish." },
-                es: { text: "Ichimoku: El precio rompe por encima de la Nube (Kumo). Miras 26 periodos adelante y la nube futura ha cambiado de roja a verde.", exp: "La ruptura está confirmada por el cruce futuro. La macro tendencia ha pasado de bajista a alcista." }
-            },
-            { 
-                correct: "Hold", 
-                en: { text: "Ichimoku: The Tenkan-sen crosses above the Kijun-sen (Buy Signal). However, current price is INSIDE the Cloud.", exp: "Inside the cloud is an area of noise and equilibrium. A cross inside the cloud is a neutral signal. Wait for a clear breakout." },
-                es: { text: "Ichimoku: El Tenkan-sen cruza por encima del Kijun-sen (Señal de Compra). Sin embargo, el precio actual está DENTRO de la Nube.", exp: "Dentro de la nube hay ruido y equilibrio. Un cruce allí es una señal neutral. Espera una ruptura clara." }
-            },
-            { 
-                correct: "Buy", 
-                en: { text: "Ichimoku: Price is in a strong uptrend above the cloud. It pulls back, touches the Kijun-sen (base line), and rejects it leaving a bottom wick.", exp: "The Kijun-sen acts as a 50% equilibrium support. A rejection here is a classic, high-probability trend continuation." },
-                es: { text: "Ichimoku: Fuerte tendencia alcista sobre la nube. El precio retrocede, toca el Kijun-sen (línea base) y la rechaza dejando una mecha inferior.", exp: "El Kijun-sen actúa como soporte de equilibrio al 50%. Un rechazo aquí es una continuación de tendencia de alta probabilidad." }
-            },
-            { 
-                correct: "Hold", 
-                en: { text: "Ichimoku Confirmation: Price breaks above the cloud, but the Chikou Span (lagging line) is still trapped below historical price candles.", exp: "The Chikou Span is your ultimate filter. If it is stuck in price traffic, the breakout is unconfirmed and could be a fakeout." },
-                es: { text: "Confirmación Ichimoku: El precio rompe sobre la nube, pero el Chikou Span (línea rezagada) sigue atrapado debajo de las velas históricas.", exp: "El Chikou Span es tu filtro final. Si está atrapado en el tráfico de precios, la ruptura no está confirmada." }
-            },
-            { 
-                correct: "Sell", 
-                en: { text: "Structure: A Bull Flag is forming. The flag channel is sloping downwards, but volume is INCREASING as price drops.", exp: "A valid flag must form on DECREASING volume. Increasing volume on a pullback means it's a reversal, not a continuation flag." },
-                es: { text: "Estructura: Se forma una Bandera Alcista. El canal se inclina hacia abajo, pero el volumen AUMENTA mientras el precio cae.", exp: "Una bandera válida debe formarse con volumen DECRECIENTE. Si el volumen aumenta en la caída, es una reversión, no una bandera." }
-            },
-            { 
-                correct: "Sell", 
-                en: { text: "Structure: A Head and Shoulders pattern forms. The Right Shoulder is currently forming, but the volume is significantly LOWER than the Left Shoulder.", exp: "Lower volume on the right shoulder proves buyers are exhausted and cannot push price back to the highs. The reversal is imminent." },
-                es: { text: "Estructura: Se forma un Hombro-Cabeza-Hombro. El hombro derecho se forma con un volumen significativamente MENOR que el izquierdo.", exp: "El menor volumen en el hombro derecho prueba que los compradores están agotados y no pueden volver a los máximos." }
-            },
-            { 
-                correct: "Hold", 
-                en: { text: "Moving Averages: The 50 SMA crosses below the 200 SMA (Death Cross). However, price is already 15% below the 200 SMA.", exp: "By the time a macro cross happens, the move is often exhausted. Selling here is dangerous due to mean reversion (price snapping back to the SMA)." },
-                es: { text: "Medias Móviles: La SMA 50 cruza bajo la SMA 200 (Cruce de la Muerte). Sin embargo, el precio ya está un 15% por debajo de la SMA 200.", exp: "Cuando ocurre el cruce macro, el movimiento suele estar agotado. Vender aquí es peligroso por la reversión a la media." }
-            },
-            { 
-                correct: "Sell", 
-                en: { text: "Trendline: A perfectly clean diagonal support trendline has been touched 4 times. On the 5th touch, price breaks it impulsively on high volume.", exp: "Trendlines exist to be broken. Once a pattern is too obvious, institutions break it to trigger the retail stop-losses placed just below the line." },
-                es: { text: "Línea de Tendencia: Un soporte diagonal perfecto ha sido tocado 4 veces. En el quinto toque, el precio lo rompe impulsivamente con alto volumen.", exp: "Una vez que un patrón es demasiado obvio, las instituciones lo rompen para activar los stop-loss minoristas bajo la línea." }
-            },
-            { 
-                correct: "Sell", 
-                en: { text: "Structure: Price forms a massive 'Cup and Handle'. It breaks above the rim of the cup, but immediately reverses and closes below the rim as a bearish engulfing candle.", exp: "Failed breakouts are often more powerful than successful ones. This trapped all the breakout buyers, providing fuel for a fast move down." },
-                es: { text: "Estructura: El precio forma una 'Taza con Asa'. Rompe por encima del borde, pero inmediatamente se revierte y cierra por debajo como envolvente bajista.", exp: "Las rupturas fallidas son muy poderosas. Esto atrapó a todos los compradores, dando combustible para una caída rápida." }
-            },
-            { 
-                correct: "Buy", 
-                en: { text: "Gaps: Market opens with a massive gap down below known support. Within the first 30 minutes, price aggressively fills the gap and reclaims the support level.", exp: "This is an exhaustion gap trap. Smart money gapped the price down to shake out weak hands, then immediately bought the discount." },
-                es: { text: "Huecos (Gaps): El mercado abre con un gran gap bajista por debajo del soporte. En 30 min, el precio llena el gap y recupera el soporte.", exp: "Es una trampa de agotamiento. El dinero inteligente bajó el precio para asustar a los minoristas y luego compró con descuento." }
-            }
+            // WYCKOFF (1-20)
+            {correct:"Buy",en:{text:"Wyckoff Phase C: Price sweeps below a major support level, rejecting immediately on massive volume with a long bottom wick.",exp:"Spring trap. Institutions engineered the drop to steal retail liquidity before reversing."},es:{text:"Fase C de Wyckoff: El precio barre debajo de un soporte mayor, rechazando inmediatamente con volumen masivo y una mecha larga.",exp:"Trampa 'Spring'. Las instituciones crearon la caída para robar liquidez minorista."}},
+            {correct:"Sell",en:{text:"Wyckoff Distribution: Price breaks to a new high out of a consolidation range. Breakout volume is extremely low.",exp:"Upthrust trap. Breakouts need high volume. Low volume means smart money is distributing, not buying."},es:{text:"Distribución Wyckoff: El precio rompe a un nuevo máximo desde una consolidación. El volumen es extremadamente bajo.",exp:"Trampa 'Upthrust'. Las rupturas necesitan volumen. Bajo volumen significa que están distribuyendo, no comprando."}},
+            {correct:"Buy",en:{text:"Accumulation: Price impulsively breaks the top of a range on high volume, then pulls back slowly with very low volume.",exp:"Last Point of Support (LPS). Low volume on the pullback proves sellers are exhausted."},es:{text:"Acumulación: El precio rompe impulsivamente el techo de un rango con alto volumen, luego retrocede lentamente sin volumen.",exp:"Último Punto de Soporte (LPS). El bajo volumen demuestra que los vendedores se agotaron."}},
+            {correct:"Sell",en:{text:"Distribution Phase B: Series of wide-spread red candles with massive volume appear, but price isn't dropping below support yet.",exp:"Heavy institutional selling. They are unloading bags into retail limit orders. Support will break."},es:{text:"Fase B de Distribución: Aparecen velas rojas grandes con volumen masivo, pero el precio no cae del soporte aún.",exp:"Venta institucional pesada. Descargan posiciones contra órdenes minoristas. El soporte se romperá."}},
+            {correct:"Buy",en:{text:"Wyckoff Phase A: Long downtrend ends with a massive red candle on the highest volume of the year. The next candle doesn't go lower.",exp:"Selling Climax (SC). The massive effort to drop price failed. Smart money absorbed the panic selling."},es:{text:"Fase A de Wyckoff: Tendencia bajista termina con una enorme vela roja y el mayor volumen del año. La siguiente vela no baja más.",exp:"Clímax de Ventas (SC). El esfuerzo por bajar falló. El dinero inteligente absorbió el pánico."}},
+            {correct:"Hold",en:{text:"Wyckoff Phase B: Price is violently chopping up and down within a well-defined range. Volume is erratic.",exp:"This is the inventory transfer phase. Choppy ranges destroy capital. Wait for Phase C (the trap) to enter."},es:{text:"Fase B de Wyckoff: El precio sube y baja violentamente dentro de un rango definido. El volumen es errático.",exp:"Fase de transferencia de inventario. Operar aquí destruye capital. Espera la Fase C (la trampa)."}},
+            {correct:"Buy",en:{text:"Accumulation: After a Spring, price rallies to the top of the range (SOS), then pulls back forming a higher low on decreasing volume.",exp:"This is the classic LPS (Last Point of Support). The lack of volume confirms sellers are gone."},es:{text:"Acumulación: Tras un Spring, el precio sube al techo del rango (SOS), y retrocede formando un mínimo más alto sin volumen.",exp:"Es el clásico LPS. La falta de volumen confirma que los vendedores desaparecieron."}},
+            {correct:"Sell",en:{text:"Distribution Phase C: Price sweeps above the previous all-time high, but instantly closes as a bearish engulfing candle.",exp:"UTAD (Upthrust After Distribution). The final trap to catch breakout buyers before the markdown phase begins."},es:{text:"Fase C Distribución: El precio supera el máximo histórico anterior, pero cierra instantáneamente como envolvente bajista.",exp:"UTAD. La trampa final para atrapar compradores de rupturas antes de la caída masiva."}},
+            {correct:"Hold",en:{text:"Markdown Phase: Price has broken below the distribution range and is making lower lows on increasing volume.",exp:"Do not try to catch a falling knife. Wait for a Selling Climax to form a new accumulation base."},es:{text:"Fase de Caída: El precio ha roto debajo del rango de distribución y hace mínimos más bajos con volumen creciente.",exp:"No intentes atrapar un cuchillo cayendo. Espera un Clímax de Ventas para formar una nueva base."}},
+            {correct:"Buy",en:{text:"Wyckoff Test: After a Selling Climax and Auto Rally, price drops back to the SC low. The volume on this drop is significantly lower.",exp:"Secondary Test (ST). Lower volume proves the selling pressure has dried up. Accumulation is confirmed."},es:{text:"Wyckoff Test: Tras un Clímax de Ventas y un Rally Automático, el precio cae al mínimo del SC. El volumen es mucho menor.",exp:"Prueba Secundaria (ST). Menor volumen prueba que la presión de venta se secó. Acumulación confirmada."}},
+            
+            // VOLUME PRICE ANALYSIS (11-30)
+            {correct:"Buy",en:{text:"Downtrend: A massive, wide-spread red candle appears on extreme volume. The very next candle is a tiny green doji.",exp:"Absorption anomaly. Massive effort yielded zero downward result. Smart money bought the bottom."},es:{text:"Tendencia Bajista: Aparece una enorme vela roja con volumen extremo. La siguiente vela es un pequeño doji verde.",exp:"Anomalía de absorción. Esfuerzo masivo no dio resultado bajista. El dinero inteligente compró el fondo."}},
+            {correct:"Hold",en:{text:"Uptrend: Price is rising consistently, but over the last 5 candles, volume bars have been steadily decreasing.",exp:"Anomaly. Rising price must be validated by rising volume. Decreasing volume means the trend is dying."},es:{text:"Tendencia Alcista: El precio sube, pero en las últimas 5 velas, el volumen ha ido disminuyendo constantemente.",exp:"Anomalía. El precio al alza debe validarse con volumen. Menos volumen significa que la tendencia muere."}},
+            {correct:"Hold",en:{text:"Consolidation: Price is trapped in a tight range. A candle closes right in the middle, but the volume bar is huge.",exp:"Squat candle. High volume on a narrow spread means a massive battle is happening. Wait for the breakout."},es:{text:"Consolidación: El precio está en un rango estrecho. Una vela cierra justo en medio, pero el volumen es enorme.",exp:"Vela 'Squat'. Alto volumen en cuerpo estrecho significa una batalla masiva. Espera la ruptura."}},
+            {correct:"Buy",en:{text:"Breakout: Price breaks resistance with a massive green candle and extreme volume. Next three candles are small red, low volume.",exp:"Perfect validation. Breakout had institutional effort. Pullback is just weak retail profit-taking."},es:{text:"Ruptura: Precio rompe resistencia con gran vela verde y volumen extremo. Las 3 siguientes son rojas pequeñas sin volumen.",exp:"Validación perfecta. La ruptura tuvo esfuerzo institucional. El retroceso es toma de ganancias menor."}},
+            {correct:"Sell",en:{text:"Support Test: Price approaches a known resistance ceiling. The candle touching it has a long top wick and high volume.",exp:"Selling pressure anomaly. Buyers tried to push it up, but sellers aggressively slammed it down."},es:{text:"Prueba Resistencia: El precio se acerca al techo. La vela que lo toca tiene una mecha superior larga y alto volumen.",exp:"Anomalía de presión vendedora. Los compradores intentaron subirlo, pero los vendedores lo frenaron."}},
+            {correct:"Sell",en:{text:"VPA: Price is making a new high, but the candle spread is very narrow and volume is exceptionally high.",exp:"Buying Climax. Effort to rise is met with massive institutional limit sell orders. Reversal imminent."},es:{text:"VPA: El precio hace un nuevo máximo, pero el cuerpo de la vela es estrecho y el volumen es excepcionalmente alto.",exp:"Clímax de Compras. El esfuerzo alcista choca con órdenes límite de venta institucionales. Reversión inminente."}},
+            {correct:"Buy",en:{text:"VPA: Price gaps down on open, drops sharply on high volume, but immediately reverses to close green, filling the gap.",exp:"Exhaustion gap. Institutions gapped it down to trigger panic, then bought the discount."},es:{text:"VPA: El precio abre con gap bajista, cae fuerte con volumen, pero revierte inmediato cerrando verde.",exp:"Gap de agotamiento. Las instituciones lo bajaron para causar pánico y compraron el descuento."}},
+            {correct:"Hold",en:{text:"VPA: Price breaks out of a flag pattern. The breakout candle is green, but volume is lower than the previous 10 candles.",exp:"Trap warning. A breakout without volume is a retail trap. Institutions aren't supporting the move."},es:{text:"VPA: El precio rompe una bandera alcista. La vela es verde, pero el volumen es menor que las 10 velas anteriores.",exp:"Alerta de trampa. Ruptura sin volumen es trampa minorista. Las instituciones no apoyan el movimiento."}},
+            {correct:"Sell",en:{text:"VPA: Three consecutive green candles. Volume is increasing on each one, but the physical size of the candles is getting smaller.",exp:"Effort vs Result anomaly. Increasing buying effort is resulting in less price movement. Sellers are absorbing."},es:{text:"VPA: Tres velas verdes seguidas. El volumen aumenta en cada una, pero el tamaño de las velas es cada vez menor.",exp:"Anomalía Esfuerzo vs Resultado. Más esfuerzo comprador da menos movimiento. Los vendedores absorben."}},
+            {correct:"Buy",en:{text:"VPA: Downtrend. A red candle pushes down but closes near its high with a long bottom wick and ultra-high volume.",exp:"Stopping Volume. The smart money has stepped in to stop the fall, absorbing all the sell orders."},es:{text:"VPA: Tendencia bajista. Vela roja empuja abajo pero cierra cerca de su máximo con mecha larga y volumen ultra alto.",exp:"Volumen de Parada. El dinero inteligente intervino para detener la caída, absorbiendo ventas."}},
+
+            // SMART MONEY CONCEPTS (SMC) (21-40)
+            {correct:"Buy",en:{text:"SMC: Price drops into a 1H bullish Order Block and forms a 15m Fair Value Gap (FVG) on the reversal.",exp:"High probability entry. The OB provides institutional support, and the FVG confirms displacement upward."},es:{text:"SMC: El precio cae a un Order Block alcista de 1H y forma un Fair Value Gap (FVG) de 15m al revertir.",exp:"Alta probabilidad. El OB da soporte institucional y el FVG confirma el desplazamiento alcista."}},
+            {correct:"Sell",en:{text:"SMC: Price rallies to take out 'Buyside Liquidity' (previous daily high), then aggressively closes below it forming a bearish FVG.",exp:"Liquidity Sweep. Institutions used the breakout buyers' stops to fill their shorts. Target sellside liquidity."},es:{text:"SMC: El precio sube y toma 'Buyside Liquidity' (máximo diario anterior), luego cierra debajo formando un FVG bajista.",exp:"Barrido de Liquidez. Usaron los stops de compradores para llenar sus cortos. Apunta a la liquidez de venta."}},
+            {correct:"Hold",en:{text:"SMC: Price is inside a massive Daily Fair Value Gap. It is chopping around the 50% mark (Consequent Encroachment) with no clear 1H structure.",exp:"Wait for a lower timeframe displacement. The middle of an FVG is a transition zone, not an entry trigger."},es:{text:"SMC: El precio está dentro de un FVG Diario masivo. Está rebotando en el 50% sin estructura clara en 1H.",exp:"Espera un desplazamiento en temporalidad menor. El medio de un FVG es zona de transición, no de entrada."}},
+            {correct:"Buy",en:{text:"SMC: A previous bearish Order Block was broken impulsively with high volume. Price is now returning to retest it from above.",exp:"Mitigation Block / Breaker Block. Old supply becomes new demand. Institutions are mitigating trapped shorts."},es:{text:"SMC: Un Order Block bajista anterior fue roto impulsivamente con volumen. El precio vuelve a probarlo desde arriba.",exp:"Breaker Block. Vieja oferta se vuelve nueva demanda. Las instituciones mitigan cortos atrapados."}},
+            {correct:"Sell",en:{text:"SMC: Asian session formed a tight range. London session engineers a fake breakout upward, tapping a 4H bearish Order Block.",exp:"Judas Swing. The classic London fakeout sweeps early retail liquidity before reversing for the real daily move."},es:{text:"SMC: La sesión Asiática formó un rango estrecho. Londres crea una ruptura falsa al alza, tocando un OB bajista de 4H.",exp:"Judas Swing. El falso quiebre de Londres barre liquidez minorista antes del movimiento real del día."}},
+            {correct:"Buy",en:{text:"SMC: Price creates equal lows (Retail Support). It drops quickly below them, taps a deeper Order Block, and reverses violently.",exp:"Sellside Liquidity Sweep. Equal lows are a magnet for retail stop-losses. Smart money swept them to buy cheap."},es:{text:"SMC: Precio crea mínimos iguales (Soporte Minorista). Cae debajo, toca un Order Block más profundo y revierte violentamente.",exp:"Barrido Sellside. Los mínimos iguales atraen stop-losses. El dinero inteligente los barrió para comprar barato."}},
+            {correct:"Hold",en:{text:"SMC: You see a 1H Order Block, but directly below it is a massive unmitigated Liquidity Void (empty space).",exp:"Low probability. Order blocks with voids directly below them often fail because price seeks to fill the void first."},es:{text:"SMC: Ves un Order Block de 1H, pero justo debajo hay un Vacío de Liquidez masivo sin mitigar.",exp:"Baja probabilidad. Los OB con vacíos debajo suelen fallar porque el precio buscará llenar el vacío primero."}},
+            {correct:"Sell",en:{text:"SMC: Price hits a Bearish Order Block and leaves a long top wick. The very next candle displaces downwards, leaving a FVG.",exp:"Confirmation. The wick shows rejection of the OB, and the FVG shows institutional displacement away from the level."},es:{text:"SMC: Precio toca un OB bajista y deja mecha superior larga. La siguiente vela desplaza abajo dejando un FVG.",exp:"Confirmación. La mecha muestra rechazo al OB y el FVG muestra desplazamiento institucional."}},
+            {correct:"Buy",en:{text:"SMC: During a strong uptrend, price dips into a 15m Bullish FVG exactly at the New York session open (9:30 AM EST).",exp:"Time & Price alignment. NY Open volatility often perfectly respects higher timeframe FVGs to continue the trend."},es:{text:"SMC: En fuerte tendencia alcista, el precio cae a un FVG alcista de 15m justo en la apertura de Nueva York (9:30 AM EST).",exp:"Alineación Tiempo y Precio. La volatilidad de NY suele respetar FVGs mayores para continuar la tendencia."}},
+            {correct:"Sell",en:{text:"SMC: Price makes a Higher High, but the MACD/RSI makes a Lower High (Divergence), perfectly as price taps a Weekly bearish OB.",exp:"Macro confluence. Momentum is dying exactly at a major institutional supply zone. High probability short."},es:{text:"SMC: Precio hace Máximo Más Alto, pero RSI hace Máximo Más Bajo (Divergencia), justo al tocar un OB bajista Semanal.",exp:"Confluencia Macro. El impulso muere exactamente en una zona de oferta institucional. Corto de alta probabilidad."}},
+
+            // ICHIMOKU KINKO HYO (41-60)
+            {correct:"Buy",en:{text:"Ichimoku: Price breaks above the Kumo (Cloud). You look 26 periods ahead, and the future cloud has twisted from red to green.",exp:"Confirmed Kumo breakout. The future twist indicates the macro trend has shifted from bearish to bullish."},es:{text:"Ichimoku: Precio rompe sobre la Nube (Kumo). Miras 26 periodos adelante y la nube futura cambió de roja a verde.",exp:"Ruptura Kumo confirmada. El cruce futuro indica que la macro tendencia pasó de bajista a alcista."}},
+            {correct:"Hold",en:{text:"Ichimoku: Tenkan-sen crosses above Kijun-sen (Buy Signal). However, current price is INSIDE the Cloud.",exp:"Inside the cloud is an area of equilibrium and chop. A cross inside the cloud is neutral. Wait for breakout."},es:{text:"Ichimoku: Tenkan-sen cruza sobre Kijun-sen (Señal Compra). Sin embargo, el precio está DENTRO de la Nube.",exp:"Dentro de la nube hay equilibrio y ruido. Un cruce allí es neutral. Espera la ruptura."}},
+            {correct:"Buy",en:{text:"Ichimoku: Strong uptrend above the cloud. Price pulls back, touches the Kijun-sen, and rejects it leaving a bottom wick.",exp:"Kijun Bounce. The Kijun-sen acts as a 50% equilibrium support. Rejection here is a classic trend continuation."},es:{text:"Ichimoku: Fuerte tendencia alcista sobre la nube. Precio retrocede, toca el Kijun-sen y lo rechaza dejando mecha inferior.",exp:"Rebote Kijun. Actúa como soporte de equilibrio al 50%. Un rechazo aquí es continuación de tendencia clásica."}},
+            {correct:"Hold",en:{text:"Ichimoku: Price breaks above the cloud, but the Chikou Span (lagging line) is trapped below historical price candles.",exp:"Unconfirmed. Chikou Span is your ultimate filter. If stuck in traffic, the breakout could be a fakeout."},es:{text:"Ichimoku: Precio rompe sobre la nube, pero Chikou Span (línea rezagada) sigue atrapado bajo velas históricas.",exp:"No confirmado. Chikou Span es el filtro final. Si está atrapado en tráfico, la ruptura puede ser falsa."}},
+            {correct:"Buy",en:{text:"Ichimoku Edge-to-Edge: Price closes firmly inside a very thick Kumo from the bottom. There is no resistance inside.",exp:"When price enters a thick cloud, it has a high mathematical probability of traveling to the other edge (Span B)."},es:{text:"Ichimoku Borde a Borde: Precio cierra firmemente dentro de una Kumo muy gruesa desde abajo. No hay resistencia dentro.",exp:"Cuando el precio entra a una nube gruesa, tiene alta probabilidad de viajar al otro borde (Span B)."}},
+            {correct:"Sell",en:{text:"Ichimoku: Price drops below the Cloud. The Tenkan-sen has crossed below the Kijun-sen, and Chikou is in open space below.",exp:"Perfect Bearish Alignment. All 5 components of the Ichimoku system agree on a downtrend. High probability short."},es:{text:"Ichimoku: Precio cae bajo la Nube. Tenkan-sen cruzó bajo Kijun-sen, y Chikou está en espacio libre abajo.",exp:"Alineación Bajista Perfecta. Los 5 componentes de Ichimoku concuerdan. Corto de alta probabilidad."}},
+            {correct:"Hold",en:{text:"Ichimoku: Price is far above the Cloud and Kijun-sen (overextended). It forms a doji candle.",exp:"Rubber band effect. Price is overextended from its equilibrium (Kijun). A reversion to the mean pullback is likely."},es:{text:"Ichimoku: Precio muy por encima de la Nube y Kijun-sen (sobreextendido). Forma una vela doji.",exp:"Efecto liga. El precio está sobreextendido de su equilibrio (Kijun). Es probable una reversión a la media."}},
+            {correct:"Buy",en:{text:"Ichimoku: Flat Senkou Span B. Price pulls back to a section of the cloud where Span B has been completely flat for 15 periods.",exp:"A flat Span B acts as a massive price magnet and heavy support level. Excellent place for a bounce entry."},es:{text:"Ichimoku: Senkou Span B plano. Precio retrocede a una sección de la nube donde Span B lleva plano 15 periodos.",exp:"Un Span B plano actúa como un imán masivo y soporte pesado. Excelente lugar para entrar al rebote."}},
+            {correct:"Sell",en:{text:"Ichimoku: Kumo Twist from Green to Red occurs exactly as price hits a major Daily resistance level.",exp:"Confluence. The indicator is predicting future bearish momentum right as price hits macro resistance."},es:{text:"Ichimoku: Cruce de Nube de Verde a Roja ocurre justo cuando el precio toca resistencia Diaria mayor.",exp:"Confluencia. El indicador predice impulso bajista futuro justo cuando el precio choca con resistencia macro."}},
+            {correct:"Hold",en:{text:"Ichimoku: Price, Tenkan, and Kijun are all intertwined and moving completely sideways inside the Cloud.",exp:"Total equilibrium. The market has zero directional bias. Do not trade until price leaves the Cloud."},es:{text:"Ichimoku: Precio, Tenkan y Kijun están entrelazados moviéndose lateralmente dentro de la Nube.",exp:"Equilibrio total. El mercado tiene cero sesgo direccional. No operes hasta que el precio salga de la Nube."}},
+
+            // CLASSICAL STRUCTURES & TRAPS (61-80)
+            {correct:"Sell",en:{text:"Structure: A Bull Flag is forming. The flag channel slopes down, but volume is INCREASING as price drops.",exp:"Trap. A valid flag forms on DECREASING volume. Increasing volume on a pullback means reversal, not a flag."},es:{text:"Estructura: Bandera Alcista formándose. El canal se inclina abajo, pero el volumen AUMENTA mientras el precio cae.",exp:"Trampa. Una bandera válida se forma con volumen DECRECIENTE. Si el volumen aumenta, es reversión, no bandera."}},
+            {correct:"Sell",en:{text:"Structure: Head and Shoulders pattern. The Right Shoulder is forming, but volume is significantly LOWER than Left Shoulder.",exp:"Confirmation. Lower volume on the right shoulder proves buyers are exhausted and cannot reach the highs."},es:{text:"Estructura: Hombro-Cabeza-Hombro. Hombro derecho se forma con volumen significativamente MENOR que el izquierdo.",exp:"Confirmación. Menor volumen en el hombro derecho prueba que los compradores están agotados y no llegarán al máximo."}},
+            {correct:"Sell",en:{text:"Structure: Diagonal trendline touched 4 times. On the 5th touch, price breaks it impulsively on high volume.",exp:"Trendlines exist to be broken. Once too obvious, institutions break them to trigger retail stop-losses."},es:{text:"Estructura: Línea de tendencia diagonal tocada 4 veces. Al quinto toque, el precio rompe impulsivamente con volumen.",exp:"Las líneas existen para romperse. Si es muy obvia, las instituciones la rompen para activar stops minoristas."}},
+            {correct:"Sell",en:{text:"Structure: Price forms a massive 'Cup and Handle'. It breaks the rim, but immediately reverses to close as a bearish engulfing.",exp:"Failed breakouts are powerful. This trapped breakout buyers, providing fuel for a fast markdown."},es:{text:"Estructura: Patrón 'Taza con Asa'. Rompe el borde, pero inmediatamente revierte cerrando como envolvente bajista.",exp:"Rupturas fallidas son muy poderosas. Atrapó compradores, dando combustible para una caída rápida."}},
+            {correct:"Buy",en:{text:"Structure: Double Bottom. The second leg dips slightly BELOW the first leg, sweeps liquidity, and rejects on high volume.",exp:"Institutional Double Bottom. The sweep of the first low took out retail stops before reversing upward."},es:{text:"Estructura: Doble Suelo. La segunda pata cae levemente DEBAJO de la primera, barre liquidez y rechaza con volumen.",exp:"Doble Suelo Institucional. El barrido del primer mínimo eliminó stops minoristas antes de subir."}},
+            {correct:"Hold",en:{text:"Structure: Price is forming a perfectly symmetrical triangle in the middle of a larger trading range.",exp:"Symmetrical triangles are 50/50 probability patterns. Without macro context, it's pure gambling. Wait for breakout."},es:{text:"Estructura: Precio forma un triángulo simétrico perfecto en medio de un rango de cotización mayor.",exp:"Los triángulos simétricos son 50/50. Sin contexto macro, es apostar. Espera la ruptura."}},
+            {correct:"Sell",en:{text:"Structure: Triple Top formation. Price hits resistance for the 3rd time, prints a Shooting Star candle, and RSI is heavily overbought.",exp:"Strong rejection at macro resistance with momentum divergence. Bears are defending the level."},es:{text:"Estructura: Triple Techo. Precio choca resistencia por 3ra vez, deja vela Estrella Fugaz y RSI está sobrecomprado.",exp:"Fuerte rechazo en resistencia macro con divergencia de impulso. Los osos defienden el nivel."}},
+            {correct:"Buy",en:{text:"Structure: Descending Wedge after a long downtrend. Volume is drying up, and MACD is showing bullish divergence.",exp:"A descending wedge is a bullish reversal pattern. Divergence and low volume indicate selling pressure is dead."},es:{text:"Estructura: Cuña Descendente tras larga caída. Volumen se seca y MACD muestra divergencia alcista.",exp:"La cuña descendente es patrón de reversión alcista. Divergencia y poco volumen indican fin de presión vendedora."}},
+            {correct:"Hold",en:{text:"Structure: Price breaks out of a bullish pennant, but it happens right before a major FOMC (Federal Reserve) news event.",exp:"Never trade retail patterns directly into high-impact macroeconomic news. Institutions use news to destroy patterns."},es:{text:"Estructura: Precio rompe un banderín alcista, justo antes de una noticia macroeconómica importante de la FED (FOMC).",exp:"Nunca operes patrones minoristas justo antes de noticias macro. Las instituciones usan noticias para destruir patrones."}},
+            {correct:"Buy",en:{text:"Structure: A 'W' pattern forms at the 200 Daily SMA. The right side of the W has much higher volume than the left side.",exp:"Volume confirmation. The higher volume on the recovery leg proves institutional interest at the moving average."},es:{text:"Estructura: Patrón en 'W' se forma en la SMA 200 Diaria. El lado derecho tiene mucho más volumen que el izquierdo.",exp:"Confirmación de volumen. Mayor volumen en la pata de recuperación prueba interés institucional en la media móvil."}},
+
+            // MOVING AVERAGES & OSCILLATORS (81-100)
+            {correct:"Hold",en:{text:"MA: The 50 SMA crosses below the 200 SMA (Death Cross). However, price is already 15% below the 200 SMA.",exp:"By the time a macro cross happens, the move is exhausted. Selling here risks a mean reversion snap-back."},es:{text:"MA: La SMA 50 cruza bajo la SMA 200 (Cruce de Muerte). Pero el precio ya está 15% debajo de la SMA 200.",exp:"Cuando ocurre el cruce macro, el movimiento se agotó. Vender aquí arriesga un fuerte rebote de reversión a la media."}},
+            {correct:"Buy",en:{text:"MA: Golden Cross (50 crosses above 200). Price pulls back to perfectly touch the 50 SMA and prints a bullish pin bar.",exp:"Classic pullback entry. The moving average is acting as dynamic support in a freshly confirmed macro uptrend."},es:{text:"MA: Cruce Dorado (50 cruza 200). El precio retrocede, toca la SMA 50 perfecto y deja vela martillo alcista.",exp:"Entrada clásica de retroceso. La media móvil actúa como soporte dinámico en una tendencia recién confirmada."}},
+            {correct:"Sell",en:{text:"RSI: Price makes a Higher High, but the RSI indicator makes a Lower High. Price is at Daily Resistance.",exp:"Bearish Divergence. Momentum is fading despite price rising. A reversal at resistance is highly probable."},es:{text:"RSI: Precio hace Máximo Más Alto, pero RSI hace Máximo Más Bajo. El precio está en Resistencia Diaria.",exp:"Divergencia Bajista. El impulso muere aunque el precio suba. Una reversión en resistencia es muy probable."}},
+            {correct:"Hold",en:{text:"RSI: RSI reads 25 (Oversold). Price is in a massive, free-falling downtrend.",exp:"Oversold does NOT mean buy. In a strong trend, RSI can stay oversold for weeks. Wait for structure to break."},es:{text:"RSI: RSI marca 25 (Sobrevendido). Precio está en caída libre masiva.",exp:"Sobrevendido NO significa comprar. En tendencia fuerte, RSI puede seguir así semanas. Espera quiebre de estructura."}},
+            {correct:"Buy",en:{text:"MACD: Price makes a Lower Low. MACD histogram makes a Higher Low and crosses bullishly.",exp:"Bullish Divergence. The downward momentum is severely weakening. Bulls are taking control."},es:{text:"MACD: Precio hace Mínimo Más Bajo. Histograma MACD hace Mínimo Más Alto y cruza al alza.",exp:"Divergencia Alcista. El impulso bajista se está debilitando severamente. Los toros toman control."}},
+            {correct:"Sell",en:{text:"MA: Price goes parabolic, extending far away from the 20 EMA. It prints a massive green candle with a 50% top wick.",exp:"Mean reversion trap. Price is overextended and hit heavy supply. It will snap back to the EMA."},es:{text:"MA: Precio parabólico, muy lejos de la EMA 20. Deja vela verde enorme con mecha superior del 50%.",exp:"Trampa reversión a media. Precio sobreextendido chocó con fuerte oferta. Rebotará de vuelta a la EMA."}},
+            {correct:"Buy",en:{text:"MA: Price is compressed between the 50 SMA (support) and 200 SMA (resistance). It breaks the 200 SMA on extreme volume.",exp:"Moving Average Breakout. Breaking a macro MA with volume signals a major institutional regime shift."},es:{text:"MA: Precio comprimido entre SMA 50 (soporte) y SMA 200 (resistencia). Rompe la 200 con volumen extremo.",exp:"Ruptura de Media Móvil. Romper una MA macro con volumen señala un gran cambio de régimen institucional."}},
+            {correct:"Sell",en:{text:"MA: In a macro downtrend, price rallies sharply to touch the declining 200 SMA for the first time in months.",exp:"First touch of the 200 SMA in a bear market is the highest probability shorting opportunity. Institutional sellers wait here."},es:{text:"MA: En tendencia bajista macro, precio sube fuerte y toca la SMA 200 descendente por primera vez en meses.",exp:"Primer toque de SMA 200 en mercado bajista es el mejor corto. Vendedores institucionales esperan ahí."}},
+            {correct:"Buy",en:{text:"RSI: Hidden Bullish Divergence. Price makes a Higher Low (uptrend intact), but RSI drops to a Lower Low.",exp:"Hidden divergence confirms trend continuation. The indicator reset, but price held its ground. Powerful buy signal."},es:{text:"RSI: Divergencia Alcista Oculta. Precio hace Mínimo Más Alto, pero RSI cae a Mínimo Más Bajo.",exp:"Divergencia oculta confirma continuación. El indicador se reinició, pero el precio aguantó. Fuerte señal de compra."}},
+            {correct:"Hold",en:{text:"MA: Price is chopping violently above and below a completely flat 50 SMA.",exp:"No trend. When MAs are flat and price chops through them, the market is ranging. Stay out."},es:{text:"MA: Precio corta violentamente por arriba y abajo de una SMA 50 totalmente plana.",exp:"Sin tendencia. Cuando las MAs están planas y el precio las atraviesa, el mercado está en rango. Quédate fuera."}},
+
+            // PSYCHOLOGY & CONTEXT (91-100)
+            {correct:"Sell",en:{text:"Context: A massive positive news article drops about the asset. Price spikes up but immediately forms a 15m Shooting Star candle.",exp:"Buy the rumor, sell the news. Institutions use retail news euphoria as liquidity to exit their longs."},es:{text:"Contexto: Sale noticia masiva positiva del activo. Precio salta pero forma vela Estrella Fugaz en 15m.",exp:"Compra el rumor, vende la noticia. Instituciones usan la euforia minorista como liquidez para cerrar sus largos."}},
+            {correct:"Buy",en:{text:"Context: Market opens. Price instantly dumps into yesterday's low, sweeps it, and reclaims the opening price within 10 minutes.",exp:"Opening Drive Trap. Market makers engineered a quick drop to stop out weak hands before driving the real trend up."},es:{text:"Contexto: Abre el mercado. Precio cae al mínimo de ayer, lo barre y recupera el precio de apertura en 10 min.",exp:"Trampa de Apertura. Market makers crearon caída rápida para eliminar manos débiles antes de la tendencia real."}},
+            {correct:"Hold",en:{text:"Context: You just suffered 3 losing trades in a row. A mediocre setup appears that 'looks okay'.",exp:"Revenge trading warning. You do not have an edge here. Walk away from the charts to protect your capital."},es:{text:"Contexto: Acabas de perder 3 operaciones seguidas. Aparece una configuración mediocre que 'se ve bien'.",exp:"Alerta de Revenge Trading. No tienes ventaja matemática aquí. Aléjate de los gráficos para proteger tu capital."}},
+            {correct:"Sell",en:{text:"Context: Multi-Timeframe mismatch. 15m chart shows a beautiful breakout, but the Daily chart shows price hitting massive supply.",exp:"Higher timeframe always wins. The 15m breakout is a trap to induce buyers right into daily institutional resistance."},es:{text:"Contexto: Desajuste temporal. Gráfico 15m muestra hermosa ruptura, pero el Diario choca con oferta masiva.",exp:"La temporalidad mayor siempre gana. La ruptura de 15m es trampa para inducir compras contra resistencia diaria."}},
+            {correct:"Buy",en:{text:"Context: Asian session consolidates. London session drops to a Daily Support. NY session opens and violently rejects that support.",exp:"Perfect daily cycle. NY session provides the volume to confirm the London reversal at macro support."},es:{text:"Contexto: Sesión Asiática consolida. Londres cae a Soporte Diario. NY abre y rechaza violentamente ese soporte.",exp:"Ciclo diario perfecto. La sesión NY provee el volumen para confirmar la reversión de Londres en soporte macro."}},
+            {correct:"Hold",en:{text:"Context: It's Friday afternoon at 3:30 PM EST. A decent breakout pattern forms.",exp:"Weekend risk. Volume dries up late Friday, leading to fakeouts. Professional traders close risk before the weekend."},es:{text:"Contexto: Es Viernes a las 3:30 PM EST. Se forma un patrón de ruptura decente.",exp:"Riesgo de fin de semana. El volumen se seca, causando rupturas falsas. Los profesionales cierran riesgo el viernes."}},
+            {correct:"Sell",en:{text:"Context: Asset is up 400% in a month. Everyone on social media is saying it will go higher. Price forms a Daily bearish engulfing.",exp:"Euphoria phase. When the masses are maximally greedy, the top is in. The bearish engulfing confirms the reversal."},es:{text:"Contexto: Activo subió 400% en un mes. Todos en redes dicen que subirá más. Precio forma envolvente bajista Diaria.",exp:"Fase de euforia. Cuando las masas son más codiciosas, es el techo. La envolvente bajista confirma la reversión."}},
+            {correct:"Buy",en:{text:"Context: Asset crashes 30% due to panic. Price hits the .618 Fibonacci retracement of the macro bull run and forms a Doji.",exp:"The Golden Ratio (.618) is a major algorithm trigger. Panic selling exhausted exactly at structural equilibrium."},es:{text:"Contexto: Activo cae 30% por pánico. Precio toca el retroceso Fibonacci .618 del mercado alcista y forma un Doji.",exp:"El Ratio Dorado (.618) es gatillo de algoritmos. Pánico agotado exactamente en el equilibrio estructural."}},
+            {correct:"Sell",en:{text:"Context: Price approaches a 'Round Number' (e.g., $100.00). It breaks it by 10 cents, then immediately dumps.",exp:"Psychological trap. Retail puts buy-stops just above round numbers. Institutions triggered them for liquidity."},es:{text:"Contexto: Precio se acerca a un 'Número Redondo' (ej: $100.00). Lo rompe por 10 centavos y cae de inmediato.",exp:"Trampa psicológica. Minoristas ponen stops sobre números redondos. Instituciones los activan por liquidez."}},
+            {correct:"Buy",en:{text:"Context: You identify a high-probability Wyckoff Spring. Risk:Reward is 1:4. You feel nervous about entering.",exp:"Execute. Trading is about probabilities, not certainty. If the system dictates it and R:R is > 1:2, pull the trigger."},es:{text:"Contexto: Identificas un Wyckoff Spring de alta probabilidad. Riesgo:Beneficio es 1:4. Te sientes nervioso por entrar.",exp:"Ejecuta. El trading es probabilidad, no certeza. Si el sistema lo dicta y el R:R es > 1:2, aprieta el gatillo."}}
         ];
 
         let currentScen = 0;
 
         function updateUI() {
             const dict = i18n[lang];
-            
-            // Update Headers & Calc UI
             document.getElementById('ui-title').innerText = dict.title;
             document.getElementById('ui-subtitle').innerText = dict.subtitle;
             document.getElementById('ui-calcTitle').innerText = dict.calcTitle;
@@ -318,12 +267,10 @@
             document.getElementById('ui-rr').innerText = dict.rr;
             document.getElementById('ui-expectancy').innerText = dict.expectancy;
             
-            // Update Theory UI
             document.getElementById('ui-theoryTitle').innerHTML = `<svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ${dict.theoryTitle}`;
             document.getElementById('ui-theory1').innerHTML = dict.theory1;
             document.getElementById('ui-theory2').innerText = dict.theory2;
             
-            // Update Scenario UI
             document.getElementById('ui-scenTitle').innerText = dict.scenTitle;
             document.getElementById('btnBuy').innerText = dict.btnBuy;
             document.getElementById('btnSell').innerText = dict.btnSell;
@@ -331,7 +278,6 @@
             document.getElementById('ui-nextBtn').innerText = dict.nextBtn;
             document.getElementById('langBtnText').innerText = dict.toggleBtn;
 
-            // Reload current scenario text
             loadScenario(true);
         }
 
@@ -342,19 +288,15 @@
 
         function loadScenario(isLanguageSwitch = false) {
             const sc = scenarios[currentScen];
-            
             document.getElementById('scenarioText').innerText = sc[lang].text;
             document.getElementById('counter').innerText = `${currentScen + 1} / ${scenarios.length}`;
             
-            // Only reset the feedback box if we are actually moving to a new scenario, not just translating
             if (!isLanguageSwitch) {
                 document.getElementById('btnGroup').classList.remove('hidden');
                 document.getElementById('feedbackBox').classList.add('hidden');
             } else if (!document.getElementById('feedbackBox').classList.contains('hidden')) {
-                // If feedback is already showing and we switch languages, translate the explanation
                 const isCorrect = document.getElementById('feedbackTitle').classList.contains('text-emerald-400');
                 const actionTranslation = { "Buy": i18n[lang].btnBuy, "Sell": i18n[lang].btnSell, "Hold": i18n[lang].btnHold };
-                
                 document.getElementById('feedbackTitle').innerText = isCorrect ? i18n[lang].correctMsg : `${i18n[lang].incorrectMsg} ${actionTranslation[sc.correct]}`;
                 document.getElementById('feedbackExplanation').innerHTML = `<span class="text-white font-bold">${i18n[lang].mechanicsMsg}</span> ${sc[lang].exp}`;
             }
@@ -364,8 +306,6 @@
             const sc = scenarios[currentScen];
             const isCorrect = guess === sc.correct;
             const dict = i18n[lang];
-            
-            // Translate the correct action for the incorrect message
             const actionTranslation = { "Buy": dict.btnBuy, "Sell": dict.btnSell, "Hold": dict.btnHold };
             
             document.getElementById('btnGroup').classList.add('hidden');
@@ -374,7 +314,6 @@
             const titleEl = document.getElementById('feedbackTitle');
             titleEl.innerText = isCorrect ? dict.correctMsg : `${dict.incorrectMsg} ${actionTranslation[sc.correct]}`;
             titleEl.className = `font-black text-lg mb-2 tracking-wide uppercase ${isCorrect ? 'text-emerald-400' : 'text-rose-500'}`;
-            
             document.getElementById('feedbackExplanation').innerHTML = `<span class="text-white font-bold">${dict.mechanicsMsg}</span> ${sc[lang].exp}`;
         }
 
@@ -383,11 +322,9 @@
             loadScenario();
         }
 
-        // Initialize App
         updateUI();
         calculate();
 
-        // --- PWA SERVICE WORKER LOGIC ---
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js').catch(err => console.log('SW setup failed'));
