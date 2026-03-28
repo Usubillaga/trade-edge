@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Trade Edge PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#111827">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        <header class="text-center pb-4 border-b border-gray-700">
+            <h1 class="text-3xl font-bold text-white tracking-wider">TRADE EDGE</h1>
+            <p class="text-gray-400 text-sm mt-1">Probability & Scenario Engine</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                <h2 class="text-xl font-semibold mb-4 text-blue-400">Risk & Expectancy</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Win Rate (%)</label>
+                        <input type="number" id="winRate" value="40" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white outline-none focus:border-blue-500" oninput="calculate()">
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Entry</label>
+                            <input type="number" id="entry" value="100" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white outline-none focus:border-blue-500" oninput="calculate()">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Stop Loss</label>
+                            <input type="number" id="stop" value="95" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white outline-none focus:border-blue-500" oninput="calculate()">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-1">Target</label>
+                            <input type="number" id="target" value="115" class="w-full bg-gray-900 border border-gray-600 rounded p-2 text-white outline-none focus:border-blue-500" oninput="calculate()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-700 space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Risk:Reward</span>
+                        <span id="rrOutput" class="font-mono text-white">1 : 3.00</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-900 p-3 rounded mt-2">
+                        <span class="text-gray-300 font-semibold">System Expectancy</span>
+                        <span id="expectancyOutput" class="font-mono text-xl font-bold text-green-500">+$4.00</span>
+                    </div>
+                    <p class="text-xs text-gray-500 text-center mt-2">Positive expectancy means this setup is mathematically profitable over 100+ trades.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col">
+                <h2 class="text-xl font-semibold mb-4 text-purple-400">Scenario Trainer</h2>
+                
+                <div class="flex-grow">
+                    <p id="scenarioText" class="text-sm text-gray-200 mb-6 leading-relaxed min-h-[80px]"></p>
+                    
+                    <div id="btnGroup" class="grid grid-cols-2 gap-3 mb-6">
+                        <button onclick="checkAnswer('Buy')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Buy</button>
+                        <button onclick="checkAnswer('Sell')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Sell</button>
+                        <button onclick="checkAnswer('Short')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Short</button>
+                        <button onclick="checkAnswer('Hold')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 rounded transition">Hold</button>
+                    </div>
+
+                    <div id="feedbackBox" class="hidden p-4 rounded-lg bg-gray-900 border border-gray-600">
+                        <h3 id="feedbackTitle" class="font-bold text-lg mb-1"></h3>
+                        <p id="feedbackExplanation" class="text-sm text-gray-400"></p>
+                        <button onclick="nextScenario()" class="mt-4 w-full bg-blue-600 hover:bg-blue-500 text-white py-2 rounded font-semibold transition">Next Scenario →</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- CALCULATOR LOGIC ---
+        function calculate() {
+            const winRate = parseFloat(document.getElementById('winRate').value) / 100;
+            const entry = parseFloat(document.getElementById('entry').value);
+            const stop = parseFloat(document.getElementById('stop').value);
+            const target = parseFloat(document.getElementById('target').value);
+
+            if (!entry || !stop || !target || entry === stop) return;
+
+            const isLong = target > entry;
+            const risk = isLong ? (entry - stop) : (stop - entry);
+            const reward = isLong ? (target - entry) : (entry - target);
+
+            if (risk <= 0) {
+                document.getElementById('rrOutput').innerText = "Invalid Setup";
+                return;
+            }
+
+            const rr = reward / risk;
+            document.getElementById('rrOutput').innerText = `1 : ${rr.toFixed(2)}`;
+
+            const lossRate = 1 - winRate;
+            const expectancy = (winRate * reward) - (lossRate * risk);
+            
+            const expEl = document.getElementById('expectancyOutput');
+            expEl.innerText = `${expectancy > 0 ? '+' : ''}$${expectancy.toFixed(2)}`;
+            expEl.className = `font-mono text-xl font-bold ${expectancy > 0 ? 'text-green-500' : 'text-red-500'}`;
+        }
+
+        // --- SCENARIO LOGIC ---
+        // ADD YOUR 50 SCENARIOS TO THIS ARRAY
+        const scenarios = [
+            { text: "Wyckoff Phase C: Price just swept the Preliminary Support low on extreme volume. The 15m candle closed back inside the range as a massive bullish pin bar.", correct: "Buy", exp: "This is a 'Spring' trap. High volume + rejection of lower prices means Smart Money is absorbing sell orders." },
+            { text: "Macro Uptrend: Price is currently consolidating INSIDE the Ichimoku Cloud. Tenkan-sen just crossed Kijun-sen upward.", correct: "Hold", exp: "Inside the Kumo (Cloud) is a no-trade zone. It represents chop and equilibrium. Wait for a breakout before entering." },
+            { text: "Downtrend: Price rallies to the 200 SMA and forms a double top. The second peak breaks the high of the first peak slightly, but volume is entirely dead.", correct: "Short", exp: "This is an Upthrust/Trap at major dynamic resistance (200 SMA). Low volume on a breakout means no institutional backing." },
+            { text: "Bull Flag: Price breaks out of the top of the flag structure, but the volume is extremely low compared to the initial impulse pole.", correct: "Hold", exp: "A breakout without volume is highly suspicious. It is likely a trap to catch early buyers before another flush downward." },
+            { text: "Volume Anomaly: In a heavy downtrend, an extremely wide-spread red candle appears on the highest volume of the month, but the next candle is a small green doji.", correct: "Buy", exp: "This is a Selling Climax followed by Absorption. Massive selling effort yielded zero downward result on the next candle. Reversal is imminent." }
+        ];
+
+        let currentScen = 0;
+
+        function loadScenario() {
+            document.getElementById('scenarioText').innerText = `Scenario ${currentScen + 1}/${scenarios.length}: ${scenarios[currentScen].text}`;
+            document.getElementById('btnGroup').classList.remove('hidden');
+            document.getElementById('feedbackBox').classList.add('hidden');
+        }
+
+        function checkAnswer(guess) {
+            const sc = scenarios[currentScen];
+            const isCorrect = guess === sc.correct;
+            
+            document.getElementById('btnGroup').classList.add('hidden');
+            document.getElementById('feedbackBox').classList.remove('hidden');
+            
+            const titleEl = document.getElementById('feedbackTitle');
+            titleEl.innerText = isCorrect ? "Correct!" : `Incorrect. The answer is ${sc.correct}.`;
+            titleEl.className = `font-bold text-lg mb-1 ${isCorrect ? 'text-green-500' : 'text-red-500'}`;
+            
+            document.getElementById('feedbackExplanation').innerText = sc.exp;
+        }
+
+        function nextScenario() {
+            currentScen = (currentScen + 1) % scenarios.length;
+            loadScenario();
+        }
+
+        // Init App
+        calculate();
+        loadScenario();
+
+        // --- PWA SERVICE WORKER REGISTRATION ---
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(() => console.log("Service Worker Registered"));
+        }
+    </script>
+</body>
+</html>
