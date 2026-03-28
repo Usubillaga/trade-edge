@@ -8,13 +8,12 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Trade Edge | Scenario Trainer">
     <meta property="og:description" content="Calculate your trading expectancy and train your pattern recognition with our institutional scenario engine.">
-    <meta property="og:image" content="https://yourdomain.com/preview-image.png"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="summary_large_image">
 
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom scrollbar for a sleek look */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
@@ -23,33 +22,38 @@
 <body class="bg-slate-950 text-slate-200 font-sans p-4 md:p-8">
 
     <div class="max-w-5xl mx-auto space-y-6">
-        <header class="text-center pb-4 border-b border-slate-800">
-            <h1 class="text-3xl font-extrabold text-white tracking-widest uppercase">Trade Edge</h1>
-            <p class="text-slate-400 text-sm mt-1">Institutional Mechanics & Probability Engine</p>
+        <header class="flex justify-between items-center pb-4 border-b border-slate-800 relative">
+            <div class="flex-1 text-center md:text-left">
+                <h1 id="ui-title" class="text-3xl font-extrabold text-white tracking-widest uppercase">Trade Edge</h1>
+                <p id="ui-subtitle" class="text-slate-400 text-sm mt-1">Institutional Mechanics & Probability Engine</p>
+            </div>
+            <button onclick="toggleLang()" class="absolute right-0 top-0 mt-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 py-2 px-4 rounded-full border border-slate-600 transition">
+                <span id="langBtnText">ESPAÑOL</span> 🌍
+            </button>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
             <div class="space-y-6">
                 <div class="bg-slate-900 p-6 rounded-xl shadow-2xl border border-slate-800">
-                    <h2 class="text-xl font-bold mb-4 text-emerald-400">Risk & Expectancy Engine</h2>
+                    <h2 id="ui-calcTitle" class="text-xl font-bold mb-4 text-emerald-400">Risk & Expectancy Engine</h2>
                     
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Historical Win Rate (%)</label>
+                            <label id="ui-winRate" class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Historical Win Rate (%)</label>
                             <input type="number" id="winRate" value="40" class="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white outline-none focus:border-emerald-500 transition" oninput="calculate()">
                         </div>
                         <div class="grid grid-cols-3 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Entry</label>
+                                <label id="ui-entry" class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Entry</label>
                                 <input type="number" id="entry" value="100" class="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white outline-none focus:border-emerald-500 transition" oninput="calculate()">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Stop Loss</label>
+                                <label id="ui-stop" class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Stop Loss</label>
                                 <input type="number" id="stop" value="95" class="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white outline-none focus:border-emerald-500 transition" oninput="calculate()">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Target</label>
+                                <label id="ui-target" class="block text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">Target</label>
                                 <input type="number" id="target" value="115" class="w-full bg-slate-950 border border-slate-700 rounded p-3 text-white outline-none focus:border-emerald-500 transition" oninput="calculate()">
                             </div>
                         </div>
@@ -57,59 +61,52 @@
 
                     <div class="mt-6 pt-6 border-t border-slate-800 space-y-3">
                         <div class="flex justify-between items-center">
-                            <span class="text-slate-400 text-sm font-medium">Risk : Reward Ratio</span>
+                            <span id="ui-rr" class="text-slate-400 text-sm font-medium">Risk : Reward Ratio</span>
                             <span id="rrOutput" class="font-mono text-lg text-white font-bold">1 : 3.00</span>
                         </div>
                         <div class="flex justify-between items-center bg-slate-950 p-4 rounded-lg border border-slate-800">
-                            <span class="text-slate-300 font-bold tracking-wide">System Expectancy</span>
+                            <span id="ui-expectancy" class="text-slate-300 font-bold tracking-wide">System Expectancy</span>
                             <span id="expectancyOutput" class="font-mono text-2xl font-black text-emerald-500">+$4.00</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
-                    <h3 class="font-bold text-slate-200 mb-2 flex items-center gap-2">
+                    <h3 id="ui-theoryTitle" class="font-bold text-slate-200 mb-2 flex items-center gap-2">
                         <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         The Math of Trading
                     </h3>
-                    <p class="text-xs text-slate-400 leading-relaxed mb-2">
+                    <p id="ui-theory1" class="text-xs text-slate-400 leading-relaxed mb-2">
                         <strong class="text-slate-300">Expectancy (E)</strong> is your mathematical edge. It calculates the average amount you will make or lose per trade over a series of 100+ trades.
                     </p>
-                    <p class="text-xs text-slate-400 leading-relaxed">
+                    <p id="ui-theory2" class="text-xs text-slate-400 leading-relaxed">
                         If E is positive, you are operating a profitable business. If E is negative, you are gambling. You can have a 35% win rate and still be highly profitable if your Risk:Reward is 1:3 or higher.
                     </p>
                 </div>
             </div>
 
             <div class="bg-slate-900 p-6 rounded-xl shadow-2xl border border-slate-800 flex flex-col h-full">
-                <div class="flex justify-between items-end mb-4">
-                    <h2 class="text-xl font-bold text-blue-400">Context Engine</h2>
+                <div class="flex justify-between items-end mb-6">
+                    <h2 id="ui-scenTitle" class="text-xl font-bold text-blue-400">Context Engine</h2>
                     <span id="counter" class="text-xs font-mono text-slate-500">0 / 0</span>
                 </div>
                 
                 <div class="flex-grow flex flex-col">
                     
-                    <div class="mb-5 w-full h-56 bg-slate-950 rounded-lg border border-slate-800 overflow-hidden flex items-center justify-center relative">
-                        <img id="scenarioImage" src="" alt="Chart" class="w-full h-full object-cover hidden" onerror="this.classList.add('hidden'); document.getElementById('noImageText').classList.remove('hidden');">
-                        <div id="noImageText" class="text-center px-4">
-                            <svg class="w-8 h-8 text-slate-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span class="text-slate-500 text-xs uppercase tracking-widest">Awaiting Chart Upload</span>
-                        </div>
+                    <div class="bg-slate-950 p-6 rounded-lg border border-slate-800 mb-6 flex-grow flex items-center">
+                        <p id="scenarioText" class="text-base text-slate-200 leading-relaxed font-medium w-full"></p>
                     </div>
-
-                    <p id="scenarioText" class="text-sm text-slate-200 mb-6 leading-relaxed flex-grow font-medium"></p>
                     
-                    <div id="btnGroup" class="grid grid-cols-2 gap-3 mb-2">
-                        <button onclick="checkAnswer('Buy')" class="bg-slate-800 border border-slate-700 hover:bg-emerald-600 hover:border-emerald-500 text-white font-bold py-3 rounded-lg transition-all duration-200">BUY</button>
-                        <button onclick="checkAnswer('Sell')" class="bg-slate-800 border border-slate-700 hover:bg-rose-600 hover:border-rose-500 text-white font-bold py-3 rounded-lg transition-all duration-200">SELL</button>
-                        <button onclick="checkAnswer('Short')" class="bg-slate-800 border border-slate-700 hover:bg-rose-600 hover:border-rose-500 text-white font-bold py-3 rounded-lg transition-all duration-200">SHORT</button>
-                        <button onclick="checkAnswer('Hold')" class="bg-slate-800 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 text-white font-bold py-3 rounded-lg transition-all duration-200">HOLD</button>
+                    <div id="btnGroup" class="grid grid-cols-3 gap-3 mb-2">
+                        <button onclick="checkAnswer('Buy')" id="btnBuy" class="bg-slate-800 border border-slate-700 hover:bg-emerald-600 hover:border-emerald-500 text-white font-bold py-4 rounded-lg transition-all duration-200">BUY</button>
+                        <button onclick="checkAnswer('Sell')" id="btnSell" class="bg-slate-800 border border-slate-700 hover:bg-rose-600 hover:border-rose-500 text-white font-bold py-4 rounded-lg transition-all duration-200">SELL</button>
+                        <button onclick="checkAnswer('Hold')" id="btnHold" class="bg-slate-800 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 text-white font-bold py-4 rounded-lg transition-all duration-200">HOLD</button>
                     </div>
 
                     <div id="feedbackBox" class="hidden p-5 rounded-lg bg-slate-950 border border-slate-800 mt-2">
                         <h3 id="feedbackTitle" class="font-black text-lg mb-2 uppercase tracking-wide"></h3>
                         <p id="feedbackExplanation" class="text-sm text-slate-300 leading-relaxed"></p>
-                        <button onclick="nextScenario()" class="mt-5 w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-bold transition shadow-lg shadow-blue-900/20">Next Setup →</button>
+                        <button onclick="nextScenario()" id="ui-nextBtn" class="mt-5 w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-bold transition shadow-lg shadow-blue-900/20">Next Setup →</button>
                     </div>
                 </div>
             </div>
@@ -118,7 +115,59 @@
     </div>
 
     <script>
-        // --- 1. EXPECTANCY CALCULATOR LOGIC ---
+        // --- MULTILINGUAL DICTIONARY ---
+        let lang = 'en';
+
+        const i18n = {
+            en: {
+                title: "Trade Edge",
+                subtitle: "Institutional Mechanics & Probability Engine",
+                calcTitle: "Risk & Expectancy Engine",
+                winRate: "Historical Win Rate (%)",
+                entry: "Entry",
+                stop: "Stop Loss",
+                target: "Target",
+                rr: "Risk : Reward Ratio",
+                expectancy: "System Expectancy",
+                theoryTitle: "The Math of Trading",
+                theory1: "<strong class='text-slate-300'>Expectancy (E)</strong> is your mathematical edge. It calculates the average amount you will make or lose per trade over 100+ trades.",
+                theory2: "If E is positive, you are operating a profitable business. If E is negative, you are gambling. You can have a 35% win rate and still be highly profitable if your Risk:Reward is 1:3 or higher.",
+                scenTitle: "Context Engine",
+                btnBuy: "BUY",
+                btnSell: "SELL",
+                btnHold: "HOLD",
+                nextBtn: "Next Setup →",
+                correctMsg: "✅ PRECISION ENTRY",
+                incorrectMsg: "❌ TRAPPED. Correct Action:",
+                mechanicsMsg: "The Mechanics:",
+                toggleBtn: "ESPAÑOL"
+            },
+            es: {
+                title: "Trade Edge",
+                subtitle: "Mecánica Institucional y Motor de Probabilidad",
+                calcTitle: "Motor de Riesgo y Esperanza",
+                winRate: "Tasa de Acierto Histórica (%)",
+                entry: "Entrada",
+                stop: "Stop Loss",
+                target: "Objetivo",
+                rr: "Relación Riesgo : Beneficio",
+                expectancy: "Esperanza del Sistema",
+                theoryTitle: "Las Matemáticas del Trading",
+                theory1: "<strong class='text-slate-300'>La Esperanza (E)</strong> es tu ventaja matemática. Calcula el promedio que ganarás o perderás por operación tras 100+ operaciones.",
+                theory2: "Si E es positiva, operas un negocio rentable. Si es negativa, estás apostando. Puedes tener un 35% de acierto y ser muy rentable si tu Riesgo:Beneficio es 1:3 o mayor.",
+                scenTitle: "Motor de Contexto",
+                btnBuy: "COMPRAR",
+                btnSell: "VENDER",
+                btnHold: "ESPERAR",
+                nextBtn: "Siguiente Escenario →",
+                correctMsg: "✅ ENTRADA PRECISA",
+                incorrectMsg: "❌ ATRAPADO. Acción Correcta:",
+                mechanicsMsg: "La Mecánica:",
+                toggleBtn: "ENGLISH"
+            }
+        };
+
+        // --- CALCULATOR LOGIC ---
         function calculate() {
             const winRate = parseFloat(document.getElementById('winRate').value) / 100;
             const entry = parseFloat(document.getElementById('entry').value);
@@ -132,7 +181,7 @@
             const reward = isLong ? (target - entry) : (entry - target);
 
             if (risk <= 0) {
-                document.getElementById('rrOutput').innerText = "Invalid Setup";
+                document.getElementById('rrOutput').innerText = "Invalid";
                 document.getElementById('expectancyOutput').innerText = "N/A";
                 return;
             }
@@ -149,87 +198,184 @@
             expEl.className = `font-mono text-2xl font-black ${expectancy > 0 ? 'text-emerald-500' : 'text-rose-500'}`;
         }
 
-        // --- 2. THE INSTITUTIONAL SCENARIO BANK (25 Setups) ---
+        // --- 20 BILINGUAL SCENARIOS (3 OPTIONS: BUY, SELL, HOLD) ---
         const scenarios = [
-            // WYCKOFF & LIQUIDITY
-            { text: "Wyckoff Phase C: Price sweeps below a major support level, triggering stop-losses. It immediately rejects on massive volume, closing as a bullish pin bar.", correct: "Buy", exp: "This is a 'Spring'. Smart money engineered the drop to steal retail liquidity. High volume + rejection means absorption.", image: "chart1.png" },
-            { text: "Macro Uptrend: Price breaks to a new all-time high out of a consolidation range. However, the volume on the breakout candle is the lowest it has been all week.", correct: "Short", exp: "This is an 'Upthrust' or trap. Breakouts require high volume (effort) to sustain. Low volume means institutions are not buying; they are trapping retail.", image: "chart2.png" },
-            { text: "Accumulation: Price is ranging. It makes a Sign of Strength (SOS) by impulsively breaking the top of the range on high volume, then pulls back slowly on low volume.", correct: "Buy", exp: "This pullback is the Last Point of Support (LPS). Low volume on the pullback proves sellers are exhausted. Enter before the markup phase.", image: "chart3.png" },
-            { text: "Wyckoff Distribution: After a massive run-up, price goes sideways. You see a series of wide-spread red candles with massive volume, but price isn't dropping below support.", correct: "Sell", exp: "This is heavy institutional distribution (selling). They are unloading bags into retail buyers. The support will eventually break.", image: "chart4.png" },
-            { text: "Liquidity Sweep: Price forms a perfect 'Double Top' at major resistance. Retail shorts place stops above the tops. Price wicks slightly above the tops, then dumps.", correct: "Short", exp: "Institutions swept the buy-stops (liquidity) above the double top to fill their massive short orders. Enter the short on the way back down.", image: "chart5.png" },
-            
-            // VOLUME PRICE ANALYSIS (VPA)
-            { text: "Downtrend: A massive, wide-spread red candle appears on extreme volume. However, the very next candle is a tiny green doji.", correct: "Buy", exp: "Selling Climax + Absorption. The massive effort to push price down resulted in zero follow-through. Smart money bought the bottom.", image: "chart6.png" },
-            { text: "Uptrend: Price is rising, but over the last 5 candles, the volume bars have been steadily decreasing as price goes higher.", correct: "Hold", exp: "This is an anomaly. Rising price should be validated by rising or stable volume. Decreasing volume means the trend is running out of gas. Prepare to take profits.", image: "chart7.png" },
-            { text: "Consolidation: Price is trapped in a tight range. Suddenly, a candle closes right in the middle of the range, but the volume bar is huge.", correct: "Hold", exp: "High volume on a narrow spread candle inside a range means a massive battle is happening between buyers and sellers, but no one has won yet. Wait for the breakout.", image: "chart8.png" },
-            { text: "Breakout: Price breaks a major resistance level with a massive green candle and extreme volume. The next three candles are small and red, with very low volume.", correct: "Buy", exp: "This is a perfect validation. The breakout had institutional backing (high volume). The pullback is just weak retail profit-taking (low volume).", image: "chart9.png" },
-            { text: "Support Test: Price approaches a known support zone. The candle touching the support has a very long top wick and high volume.", correct: "Short", exp: "A long top wick on high volume indicates heavy selling pressure from above. Buyers tried to push it up, but sellers aggressively slammed it down.", image: "chart10.png" },
-
-            // ICHIMOKU KINKO HYO
-            { text: "Ichimoku: Price breaks above the Kumo (Cloud). You look 26 periods ahead, and the future cloud has twisted from red to green.", correct: "Buy", exp: "The Kumo breakout is confirmed by the future twist. The macro trend has shifted from bearish to bullish.", image: "chart11.png" },
-            { text: "Ichimoku: The Tenkan-sen (fast line) crosses above the Kijun-sen (slow line), generating a buy signal. However, price is currently INSIDE the Cloud.", correct: "Hold", exp: "Inside the cloud is an area of noise and equilibrium. A TK cross inside the cloud is considered a neutral/weak signal. Wait for clarity.", image: "chart12.png" },
-            { text: "Ichimoku: Price is in a strong uptrend above the cloud. It pulls back and touches the Kijun-sen (base line). The candle rejects the line, leaving a bottom wick.", correct: "Buy", exp: "The Kijun-sen acts as a 50% equilibrium support for the last 26 periods. A rejection here is a classic, high-probability trend continuation entry.", image: "chart13.png" },
-            { text: "Ichimoku Edge-to-Edge: Price closes firmly inside a very thick Kumo (Cloud) from the bottom. There is no resistance inside the cloud.", correct: "Buy", exp: "When price enters the cloud, it has a high probability of traveling to the other edge of the cloud (Span B). The thick cloud top is your target.", image: "chart14.png" },
-            { text: "Ichimoku Confirmation: Price breaks above the cloud, but the Chikou Span (lagging line 26 periods back) is still trapped below historical price candles.", correct: "Hold", exp: "The Chikou Span is your ultimate filter. If it is stuck in price traffic, the breakout is not confirmed and could be a fakeout.", image: "chart15.png" },
-
-            // CLASSICAL STRUCTURES & TRAPS
-            { text: "Structure: A Bull Flag forms after a strong impulse up. The flag channel is sloping downwards, but volume is actually INCREASING as price drops.", correct: "Sell", exp: "A valid flag must form on DECREASING volume (showing lack of selling interest). Increasing volume on a pullback means a reversal, not a continuation.", image: "chart16.png" },
-            { text: "Structure: A Head and Shoulders pattern forms. The Right Shoulder is currently forming, but the volume is significantly LOWER than the Left Shoulder.", correct: "Short", exp: "This confirms the pattern. Lower volume on the right shoulder proves buyers are exhausted and cannot push price back to the highs.", image: "chart17.png" },
-            { text: "Moving Averages: On the Daily chart, the 50 SMA crosses below the 200 SMA (Death Cross). However, price is currently 15% below the 200 SMA.", correct: "Hold", exp: "By the time a macro cross happens, the move is already exhausted. Shorting here is dangerous due to the rubber-band effect (mean reversion) pulling price back up to the SMA.", image: "chart18.png" },
-            { text: "Trendline: A perfectly clean diagonal support trendline has been touched 4 times. Retail is watching it. On the 5th touch, price breaks it impulsively.", correct: "Short", exp: "Trendlines exist to be broken. Once a pattern becomes too obvious to retail, institutions will break it to trigger the stops placed just below the line.", image: "chart19.png" },
-            { text: "Structure: Price forms a massive 'Cup and Handle'. It breaks the rim of the cup, but immediately reverses and closes below the rim as a bearish engulfing.", correct: "Short", exp: "Failed breakouts are often more powerful than successful ones. This trapped all the breakout buyers, providing fuel for a fast move down.", image: "chart20.png" },
-
-            // ADVANCED INSTITUTIONAL CONTEXT
-            { text: "Context: Price is at a major weekly resistance level. On the 1-hour chart, it forms a small, beautiful bullish flag just beneath the resistance line.", correct: "Short", exp: "Never buy into major resistance. Institutions will paint bullish retail patterns just below resistance to induce buying, creating the liquidity they need to short.", image: "chart21.png" },
-            { text: "Mean Reversion: Price goes parabolic, extending far away from the Daily 20 SMA. It prints a massive green candle, but the top wick is 50% of the body.", correct: "Sell", exp: "Price is overextended and encountering heavy supply (top wick). It needs to revert to the mean (SMA) to find equilibrium.", image: "chart22.png" },
-            { text: "Gaps: Market opens with a massive gap down below known support. Within the first 30 minutes, price aggressively fills the gap and reclaims the support level.", correct: "Buy", exp: "This is an exhaustion gap/trap. Smart money gapped the price down to shake out weak hands, then immediately bought the discount.", image: "chart23.png" },
-            { text: "Volume: You see an 'Effort to Rise' anomaly. Three green candles in a row, volume is increasing on each, but the physical size of the candles is getting smaller.", correct: "Short", exp: "More buying effort is resulting in less price progress. This means institutional sellers are stepping in with limit orders, absorbing the buyers. Reversal soon.", image: "chart24.png" },
-            { text: "Structure: Price is making Lower Highs and Lower Lows (Downtrend). It pulls back to a Lower High, prints a bearish pin bar, and volume slightly increases.", correct: "Short", exp: "This is a flawless structural trend continuation entry. You are entering at a premium (Lower High) with a rejection candle confirming sellers are active.", image: "chart25.png" }
+            { 
+                correct: "Buy", 
+                en: { text: "Wyckoff Phase C: Price sweeps below a major support level, triggering stop-losses. It immediately rejects on massive volume, closing as a bullish pin bar.", exp: "This is a 'Spring'. Smart money engineered the drop to steal retail liquidity. High volume + rejection means absorption." },
+                es: { text: "Fase C de Wyckoff: El precio cae por debajo del soporte principal, activando stop-losses. Se rechaza inmediatamente con volumen masivo, cerrando como vela martillo alcista.", exp: "Esto es un 'Spring'. El dinero inteligente diseñó la caída para robar liquidez. Alto volumen + rechazo significa absorción." }
+            },
+            { 
+                correct: "Sell", 
+                en: { text: "Macro Uptrend: Price breaks to a new all-time high out of a consolidation range. However, the volume on the breakout candle is the lowest it has been all week.", exp: "This is an 'Upthrust' or trap. Breakouts require high volume (effort) to sustain. Low volume means institutions are distributing, not buying." },
+                es: { text: "Tendencia Alcista: El precio rompe a un nuevo máximo histórico tras una consolidación. Sin embargo, el volumen de la ruptura es el más bajo de toda la semana.", exp: "Esto es un 'Upthrust' (trampa alcista). Las rupturas requieren alto volumen. Bajo volumen significa que las instituciones están distribuyendo, no comprando." }
+            },
+            { 
+                correct: "Buy", 
+                en: { text: "Accumulation: Price breaks the top of a range impulsively on high volume, then pulls back slowly with decreasing, very low volume.", exp: "This pullback is the Last Point of Support (LPS). Low volume on the pullback proves sellers are exhausted." },
+                es: { text: "Acumulación: El precio rompe el tope de un rango impulsivamente con alto volumen, luego retrocede lentamente con un volumen muy bajo y decreciente.", exp: "Este retroceso es el Último Punto de Soporte (LPS). El bajo volumen demuestra que los vendedores están agotados." }
+            },
+            { 
+                correct: "Sell", 
+                en: { text: "Distribution: After a massive run-up, price goes sideways. You see a series of wide-spread red candles with massive volume, but price isn't dropping below support... yet.", exp: "This is heavy institutional selling. They are unloading bags into retail buyers. The support floor will eventually collapse." },
+                es: { text: "Distribución: Tras una gran subida, el precio lateraliza. Ves grandes velas rojas con volumen masivo, pero el precio aún no cae por debajo del soporte.", exp: "Es venta institucional fuerte. Están descargando sus posiciones a los minoristas. El soporte eventualmente colapsará." }
+            },
+            { 
+                correct: "Sell", 
+                en: { text: "Liquidity Sweep: Price forms a perfect 'Double Top' at major resistance. Price wicks slightly above the tops, then immediately dumps.", exp: "Institutions swept the buy-stops (liquidity) sitting above the double top to fill their massive sell orders. The trap is set." },
+                es: { text: "Barrido de Liquidez: El precio forma un 'Doble Techo' perfecto. El precio deja una mecha ligeramente por encima de los techos y luego cae de inmediato.", exp: "Las instituciones barrieron los stop-loss (liquidez) por encima del doble techo para llenar sus órdenes de venta." }
+            },
+            { 
+                correct: "Buy", 
+                en: { text: "Downtrend: A massive, wide-spread red candle appears on extreme volume. However, the very next candle is a tiny green doji.", exp: "Selling Climax + Absorption. The massive effort to push price down resulted in zero follow-through. Smart money bought the bottom." },
+                es: { text: "Tendencia Bajista: Aparece una enorme vela roja con volumen extremo. Sin embargo, la siguiente vela es un pequeño doji verde.", exp: "Clímax de Venta + Absorción. El gran esfuerzo por bajar el precio no tuvo continuación. El dinero inteligente compró el fondo." }
+            },
+            { 
+                correct: "Hold", 
+                en: { text: "Uptrend: Price is rising consistently, but over the last 5 candles, the volume bars have been steadily decreasing as price goes higher.", exp: "This is an anomaly. Rising price should be validated by rising volume. Decreasing volume means the trend is running out of gas. Wait for confirmation before selling." },
+                es: { text: "Tendencia Alcista: El precio sube constantemente, pero en las últimas 5 velas, el volumen ha ido disminuyendo.", exp: "Es una anomalía. La subida debe ser validada por el volumen. Menos volumen significa que la tendencia se queda sin fuerza. Espera confirmación antes de vender." }
+            },
+            { 
+                correct: "Hold", 
+                en: { text: "Consolidation: Price is trapped in a tight range. Suddenly, a candle closes right in the middle of the range, but the volume bar is huge.", exp: "High volume on a narrow spread candle inside a range means a massive battle is happening, but no one has won yet. Wait for the true breakout." },
+                es: { text: "Consolidación: El precio está en un rango estrecho. De repente, una vela cierra en el medio del rango, pero con un volumen enorme.", exp: "Alto volumen en una vela estrecha significa una gran batalla entre toros y osos, pero nadie ha ganado. Espera la ruptura real." }
+            },
+            { 
+                correct: "Buy", 
+                en: { text: "Breakout: Price breaks resistance with a massive green candle and extreme volume. The next three candles are small and red, with very low volume.", exp: "Perfect validation. The breakout had institutional backing (effort). The pullback is just weak retail profit-taking." },
+                es: { text: "Ruptura: El precio rompe la resistencia con una gran vela verde y volumen extremo. Las siguientes tres velas son pequeñas y rojas, con muy bajo volumen.", exp: "Validación perfecta. La ruptura tuvo respaldo institucional. El retroceso es solo toma de ganancias minorista." }
+            },
+            { 
+                correct: "Sell", 
+                en: { text: "Support Test: Price approaches a known resistance ceiling. The candle touching it has a very long top wick and high volume.", exp: "A long top wick on high volume indicates heavy selling pressure. Buyers tried to push it up, but sellers aggressively slammed it down." },
+                es: { text: "Prueba de Resistencia: El precio se acerca a un techo de resistencia. La vela que lo toca tiene una mecha superior muy larga y alto volumen.", exp: "Una larga mecha superior con alto volumen indica fuerte presión de venta. Los compradores intentaron subirlo, pero los vendedores lo frenaron." }
+            },
+            { 
+                correct: "Buy", 
+                en: { text: "Ichimoku: Price breaks above the Kumo (Cloud). You look 26 periods ahead, and the future cloud has twisted from red to green.", exp: "The Kumo breakout is confirmed by the future twist. The macro trend has shifted from bearish to bullish." },
+                es: { text: "Ichimoku: El precio rompe por encima de la Nube (Kumo). Miras 26 periodos adelante y la nube futura ha cambiado de roja a verde.", exp: "La ruptura está confirmada por el cruce futuro. La macro tendencia ha pasado de bajista a alcista." }
+            },
+            { 
+                correct: "Hold", 
+                en: { text: "Ichimoku: The Tenkan-sen crosses above the Kijun-sen (Buy Signal). However, current price is INSIDE the Cloud.", exp: "Inside the cloud is an area of noise and equilibrium. A cross inside the cloud is a neutral signal. Wait for a clear breakout." },
+                es: { text: "Ichimoku: El Tenkan-sen cruza por encima del Kijun-sen (Señal de Compra). Sin embargo, el precio actual está DENTRO de la Nube.", exp: "Dentro de la nube hay ruido y equilibrio. Un cruce allí es una señal neutral. Espera una ruptura clara." }
+            },
+            { 
+                correct: "Buy", 
+                en: { text: "Ichimoku: Price is in a strong uptrend above the cloud. It pulls back, touches the Kijun-sen (base line), and rejects it leaving a bottom wick.", exp: "The Kijun-sen acts as a 50% equilibrium support. A rejection here is a classic, high-probability trend continuation." },
+                es: { text: "Ichimoku: Fuerte tendencia alcista sobre la nube. El precio retrocede, toca el Kijun-sen (línea base) y la rechaza dejando una mecha inferior.", exp: "El Kijun-sen actúa como soporte de equilibrio al 50%. Un rechazo aquí es una continuación de tendencia de alta probabilidad." }
+            },
+            { 
+                correct: "Hold", 
+                en: { text: "Ichimoku Confirmation: Price breaks above the cloud, but the Chikou Span (lagging line) is still trapped below historical price candles.", exp: "The Chikou Span is your ultimate filter. If it is stuck in price traffic, the breakout is unconfirmed and could be a fakeout." },
+                es: { text: "Confirmación Ichimoku: El precio rompe sobre la nube, pero el Chikou Span (línea rezagada) sigue atrapado debajo de las velas históricas.", exp: "El Chikou Span es tu filtro final. Si está atrapado en el tráfico de precios, la ruptura no está confirmada." }
+            },
+            { 
+                correct: "Sell", 
+                en: { text: "Structure: A Bull Flag is forming. The flag channel is sloping downwards, but volume is INCREASING as price drops.", exp: "A valid flag must form on DECREASING volume. Increasing volume on a pullback means it's a reversal, not a continuation flag." },
+                es: { text: "Estructura: Se forma una Bandera Alcista. El canal se inclina hacia abajo, pero el volumen AUMENTA mientras el precio cae.", exp: "Una bandera válida debe formarse con volumen DECRECIENTE. Si el volumen aumenta en la caída, es una reversión, no una bandera." }
+            },
+            { 
+                correct: "Sell", 
+                en: { text: "Structure: A Head and Shoulders pattern forms. The Right Shoulder is currently forming, but the volume is significantly LOWER than the Left Shoulder.", exp: "Lower volume on the right shoulder proves buyers are exhausted and cannot push price back to the highs. The reversal is imminent." },
+                es: { text: "Estructura: Se forma un Hombro-Cabeza-Hombro. El hombro derecho se forma con un volumen significativamente MENOR que el izquierdo.", exp: "El menor volumen en el hombro derecho prueba que los compradores están agotados y no pueden volver a los máximos." }
+            },
+            { 
+                correct: "Hold", 
+                en: { text: "Moving Averages: The 50 SMA crosses below the 200 SMA (Death Cross). However, price is already 15% below the 200 SMA.", exp: "By the time a macro cross happens, the move is often exhausted. Selling here is dangerous due to mean reversion (price snapping back to the SMA)." },
+                es: { text: "Medias Móviles: La SMA 50 cruza bajo la SMA 200 (Cruce de la Muerte). Sin embargo, el precio ya está un 15% por debajo de la SMA 200.", exp: "Cuando ocurre el cruce macro, el movimiento suele estar agotado. Vender aquí es peligroso por la reversión a la media." }
+            },
+            { 
+                correct: "Sell", 
+                en: { text: "Trendline: A perfectly clean diagonal support trendline has been touched 4 times. On the 5th touch, price breaks it impulsively on high volume.", exp: "Trendlines exist to be broken. Once a pattern is too obvious, institutions break it to trigger the retail stop-losses placed just below the line." },
+                es: { text: "Línea de Tendencia: Un soporte diagonal perfecto ha sido tocado 4 veces. En el quinto toque, el precio lo rompe impulsivamente con alto volumen.", exp: "Una vez que un patrón es demasiado obvio, las instituciones lo rompen para activar los stop-loss minoristas bajo la línea." }
+            },
+            { 
+                correct: "Sell", 
+                en: { text: "Structure: Price forms a massive 'Cup and Handle'. It breaks above the rim of the cup, but immediately reverses and closes below the rim as a bearish engulfing candle.", exp: "Failed breakouts are often more powerful than successful ones. This trapped all the breakout buyers, providing fuel for a fast move down." },
+                es: { text: "Estructura: El precio forma una 'Taza con Asa'. Rompe por encima del borde, pero inmediatamente se revierte y cierra por debajo como envolvente bajista.", exp: "Las rupturas fallidas son muy poderosas. Esto atrapó a todos los compradores, dando combustible para una caída rápida." }
+            },
+            { 
+                correct: "Buy", 
+                en: { text: "Gaps: Market opens with a massive gap down below known support. Within the first 30 minutes, price aggressively fills the gap and reclaims the support level.", exp: "This is an exhaustion gap trap. Smart money gapped the price down to shake out weak hands, then immediately bought the discount." },
+                es: { text: "Huecos (Gaps): El mercado abre con un gran gap bajista por debajo del soporte. En 30 min, el precio llena el gap y recupera el soporte.", exp: "Es una trampa de agotamiento. El dinero inteligente bajó el precio para asustar a los minoristas y luego compró con descuento." }
+            }
         ];
 
         let currentScen = 0;
 
-        function loadScenario() {
+        function updateUI() {
+            const dict = i18n[lang];
+            
+            // Update Headers & Calc UI
+            document.getElementById('ui-title').innerText = dict.title;
+            document.getElementById('ui-subtitle').innerText = dict.subtitle;
+            document.getElementById('ui-calcTitle').innerText = dict.calcTitle;
+            document.getElementById('ui-winRate').innerText = dict.winRate;
+            document.getElementById('ui-entry').innerText = dict.entry;
+            document.getElementById('ui-stop').innerText = dict.stop;
+            document.getElementById('ui-target').innerText = dict.target;
+            document.getElementById('ui-rr').innerText = dict.rr;
+            document.getElementById('ui-expectancy').innerText = dict.expectancy;
+            
+            // Update Theory UI
+            document.getElementById('ui-theoryTitle').innerHTML = `<svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ${dict.theoryTitle}`;
+            document.getElementById('ui-theory1').innerHTML = dict.theory1;
+            document.getElementById('ui-theory2').innerText = dict.theory2;
+            
+            // Update Scenario UI
+            document.getElementById('ui-scenTitle').innerText = dict.scenTitle;
+            document.getElementById('btnBuy').innerText = dict.btnBuy;
+            document.getElementById('btnSell').innerText = dict.btnSell;
+            document.getElementById('btnHold').innerText = dict.btnHold;
+            document.getElementById('ui-nextBtn').innerText = dict.nextBtn;
+            document.getElementById('langBtnText').innerText = dict.toggleBtn;
+
+            // Reload current scenario text
+            loadScenario(true);
+        }
+
+        function toggleLang() {
+            lang = lang === 'en' ? 'es' : 'en';
+            updateUI();
+        }
+
+        function loadScenario(isLanguageSwitch = false) {
             const sc = scenarios[currentScen];
             
-            // Update Text & Counter
-            document.getElementById('scenarioText').innerText = sc.text;
+            document.getElementById('scenarioText').innerText = sc[lang].text;
             document.getElementById('counter').innerText = `${currentScen + 1} / ${scenarios.length}`;
             
-            // Update Image
-            const imgEl = document.getElementById('scenarioImage');
-            const noImgEl = document.getElementById('noImageText');
-            
-            // Reset image state
-            imgEl.classList.add('hidden');
-            noImgEl.classList.remove('hidden');
-
-            if (sc.image) {
-                imgEl.src = sc.image;
-                // The onload event ensures we only show the image if it successfully loads from your server
-                imgEl.onload = function() {
-                    imgEl.classList.remove('hidden');
-                    noImgEl.classList.add('hidden');
-                }
+            // Only reset the feedback box if we are actually moving to a new scenario, not just translating
+            if (!isLanguageSwitch) {
+                document.getElementById('btnGroup').classList.remove('hidden');
+                document.getElementById('feedbackBox').classList.add('hidden');
+            } else if (!document.getElementById('feedbackBox').classList.contains('hidden')) {
+                // If feedback is already showing and we switch languages, translate the explanation
+                const isCorrect = document.getElementById('feedbackTitle').classList.contains('text-emerald-400');
+                const actionTranslation = { "Buy": i18n[lang].btnBuy, "Sell": i18n[lang].btnSell, "Hold": i18n[lang].btnHold };
+                
+                document.getElementById('feedbackTitle').innerText = isCorrect ? i18n[lang].correctMsg : `${i18n[lang].incorrectMsg} ${actionTranslation[sc.correct]}`;
+                document.getElementById('feedbackExplanation').innerHTML = `<span class="text-white font-bold">${i18n[lang].mechanicsMsg}</span> ${sc[lang].exp}`;
             }
-
-            // Reset UI State
-            document.getElementById('btnGroup').classList.remove('hidden');
-            document.getElementById('feedbackBox').classList.add('hidden');
         }
 
         function checkAnswer(guess) {
             const sc = scenarios[currentScen];
             const isCorrect = guess === sc.correct;
+            const dict = i18n[lang];
+            
+            // Translate the correct action for the incorrect message
+            const actionTranslation = { "Buy": dict.btnBuy, "Sell": dict.btnSell, "Hold": dict.btnHold };
             
             document.getElementById('btnGroup').classList.add('hidden');
             document.getElementById('feedbackBox').classList.remove('hidden');
             
             const titleEl = document.getElementById('feedbackTitle');
-            titleEl.innerText = isCorrect ? "✅ PRECISION ENTRY" : `❌ TRAPPED. Correct Action: ${sc.correct.toUpperCase()}`;
+            titleEl.innerText = isCorrect ? dict.correctMsg : `${dict.incorrectMsg} ${actionTranslation[sc.correct]}`;
             titleEl.className = `font-black text-lg mb-2 tracking-wide uppercase ${isCorrect ? 'text-emerald-400' : 'text-rose-500'}`;
             
-            document.getElementById('feedbackExplanation').innerHTML = `<span class="text-white font-bold">The Mechanics:</span> ${sc.exp}`;
+            document.getElementById('feedbackExplanation').innerHTML = `<span class="text-white font-bold">${dict.mechanicsMsg}</span> ${sc[lang].exp}`;
         }
 
         function nextScenario() {
@@ -238,8 +384,8 @@
         }
 
         // Initialize App
+        updateUI();
         calculate();
-        loadScenario();
 
         // --- PWA SERVICE WORKER LOGIC ---
         if ('serviceWorker' in navigator) {
